@@ -1,0 +1,60 @@
+-- Xmobar (http://projects.haskell.org/xmobar/)
+-- This is one of the xmobar configurations for DTOS.
+-- This config is packaged in the DTOS repo as 'dtos-xmobar'
+-- Color scheme: Gruvbox Dark
+-- Dependencies: 
+   -- otf-font-awesome 
+   -- ttf-mononoki 
+   -- ttf-ubuntu-font-family
+   -- htop
+   -- emacs
+   -- pacman (Arch Linux)
+   -- trayer
+   -- 'dtos-local-bin' (from dtos-core-repo)
+
+Config { font            = "xft:MesloLGS NF:weight=bold:pixelsize=11:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:mononoki Nerd Font Mono:style=Regular:pixelsize=25"
+                           , "xft:Font Awesome 6 Free Solid:pixelsize=14"
+                           , "xft:Font Awesome 6 Brands:pixelsize=14"
+                           ]
+       , bgColor      = "#282828"
+       , fgColor      = "#ebdbb2"
+       -- Position TopSize and BottomSize take 3 arguments:
+       --   an alignment parameter (L/R/C) for Left, Right or Center.
+       --   an integer for the percentage width, so 100 would be 100%.
+       --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
+       --   NOTE: The height should be the same as the trayer (system tray) height.
+       , position       = TopSize L 100 24
+       , lowerOnStart = True
+       , hideOnStart  = False
+       , allDesktops  = True
+       , persistent   = True
+       , iconRoot     = ".xmonad/xpm/"  -- default: "."
+       , commands = [ Run Cpu ["-t", "<fn=1>\xf85a</fn> <total>%","-H","50","--high","red"] 20
+
+                        -- Wireless
+                    , Run Wireless "wlp41s0" ["-t", "<fn=1>\xf1eb </fn><essid> (<quality>%)"] 60
+
+                        -- Ram used number and percent
+                    , Run Memory ["-t", "<fn=1>\xf233</fn> <used>M (<usedratio>%)"] 20
+
+                        -- Disk space free
+                    , Run DiskU [("/", "<fn=1>\xf0c7</fn> <free>")] [] 60
+
+                        -- Echos a "battery" icon in front of the pacman updates.
+                    , Run Com "echo" ["<fn=1>\xf242</fn>"] "baticon" 3600
+
+                        -- Battery
+                    , Run BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)"] 360
+
+                        -- Time and date
+                    , Run Date "<fn=1>\xf017</fn> %b %d %Y - %H:%M " "date" 50
+
+                        -- Prints out the left side items such as workspaces, layout, etc.
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <action=`dm-run`><icon=haskell_20.xpm/> </action>  <fc=#666666>|</fc> %UnsafeStdinReader%  }{  <box type=Bottom width=2 mb=2 color=#b8bb26><fc=#b8bb26><action=`kitty -e htop`>%cpu%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#458588><fc=#458588><action=`kitty -e htop`>%memory%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#d79921><fc=#d79921>%disku%</fc></box>   <box type=Bottom width=2 mb=2 color=#fb4934><fc=#fb4934>%baticon% %battery%</fc></box>  <box type=Bottom width=2 mb=2 color=#b8bb26><fc=#b8bb26>%wlp41s0wi%</fc></box>   <box type=Bottom width=2 mb=2 color=#83a598><fc=#83a598><action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(dt/year-calendar))'`>%date%</action></fc></box>"
+       }
+

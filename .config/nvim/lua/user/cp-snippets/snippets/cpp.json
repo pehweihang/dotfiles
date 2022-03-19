@@ -1,0 +1,26 @@
+{
+  "cpmain": {
+    "prefix": "cpmain",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "using namespace std;",
+      "",
+      "#define print(a) for(auto x : a) cout << x << ' '; cout << endl",
+      "",
+      "void solve() {",
+      "\tint n, m;",
+      "\tcin >> n >> m;",
+      "}",
+      "",
+      "int main() {",
+      "\tint t = 1;",
+      "\t// cin >> t;",
+      "\twhile (t--) solve();",
+      "",
+      "return 0;",
+      "}"
+    ],
+    "description": "Competitive programming template"
+  }
+}
