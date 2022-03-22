@@ -14,6 +14,7 @@
 
 Config { font            = "xft:MesloLGS NF:weight=bold:pixelsize=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:mononoki Nerd Font Mono:style=Regular:pixelsize=25"
+                           , "xft:mononoki Nerd Font Mono:style=Regular:pixelsize=17"
                            , "xft:Font Awesome 6 Free Solid:pixelsize=14"
                            , "xft:Font Awesome 6 Brands:pixelsize=14"
                            ]
@@ -33,16 +34,29 @@ Config { font            = "xft:MesloLGS NF:weight=bold:pixelsize=11:antialias=t
        , commands = [   -- Prints Arch Icon
                       Run Com "echo" [""] "arch" 72000
 
-                    , Run Cpu ["-t", "<fn=1>\xf85a</fn> <total>%","-H","50","--high","red"] 20
+                    , Run Cpu ["-t", "<fn=1>\xf85a</fn> <total>%",
+                               "-H","50","--h","#c51e3a"
+                               ] 20
 
                         -- Core Temperature
-                    , Run CoreTemp ["-t", "<avg>°C"] 50
+                    , Run CoreTemp ["-t", "<fn=2>\xe20c</fn> <core0>|<core1>°C",
+                                    "-H", "70", "-h", "#c41e3a"
+                                    ] 20
 
                         -- Sound
-                    , Run Volume "default" "Master" [] 50
+                    , Run Alsa "default" "Master" 
+                                  [ "-t", "<status> <volume>%"
+                                  , "--"
+                                  , "-o", "<fn=1>\xfa80</fn>"
+                                  , "-O", "<fn=1>\xfa7d</fn>"
+                                  , "-c", "grey", "-C", "#ebdbb2"
+                                  ] 
+
+                        -- Network speeds
+                    , Run DynNetwork ["-t", "[<rx>|<tx>]", "-S", "True"] 60
 
                         -- Wireless
-                    , Run Wireless "wlp41s0" ["-t", "<fn=1>\xf1eb </fn><essid> (<quality>%)"] 60
+                    , Run Wireless "" ["-t", "<fn=1>\xfaa8</fn> <essid>"] 60
 
                         -- Ram used number and percent
                     , Run Memory ["-t", "<fn=1>\xf233</fn> <used>M (<usedratio>%)"] 20
@@ -50,20 +64,34 @@ Config { font            = "xft:MesloLGS NF:weight=bold:pixelsize=11:antialias=t
                         -- Disk space free
                     , Run DiskU [("/", "<fn=1>\xf0c7</fn> <free>")] [] 60
 
-                        -- Echos a "battery" icon in front of the pacman updates.
-                    , Run Com "echo" ["<fn=1>\xf242</fn>"] "baticon" 3600
-
                         -- Battery
-                    , Run BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)"] 360
+                    , Run BatteryP ["BAT0"] 
+                                  [ "-t", "<acstatus> <left> (<timeleft>)"
+                                  , "-L", "10", "-H", "90"
+                                  , "-W", "0"
+                                  , "-f", "\xf244\xf243\xf243\xf241\xf240"
+                                  , "--"
+                                  , "-P", "true"
+                                  , "-A", "10"
+                                  , "-a", "notify-send -u critical 'Low Battery'"
+                                  , "-p", "green"
+                                  , "-i", "<fn=1><leftbar></fn><fn=2>\xf1e6</fn>"
+                                  , "-O", "<fn=1><leftbar></fn><fn=2>\xf1e6</fn>"
+                                  , "-o", "<fn=1><leftbar></fn>"
+                                  , "-H", "10", "-L", "7"
+                                  ] 100
+
+                        -- Keyboard layout
+                    , Run Kbd [("us(dvorak)", "DV"), ("us", "US")]
 
                         -- Time and date
-                    , Run Date "<fn=1>\xf017</fn> %b %d %Y - %H:%M " "date" 50
+                    , Run DateZone "<fn=1>\xf017</fn> %d %b %Y - %I:%M%P " "en_SG.UTF-8" "" "date" 50
 
                         -- Prints out the left side items such as workspaces, layout, etc.
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fn=1><action=`dm-run`>%arch%</action></fn> <fc=#666666>|</fc> %UnsafeStdinReader%  }{  <box type=Bottom width=2 mb=2 color=#b8bb26><fc=#b8bb26><action=`kitty -e htop`>%cpu%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#458588><fc=#458588><action=`kitty -e htop`>%memory%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#d79921><fc=#d79921>%disku%</fc></box>   <box type=Bottom width=2 mb=2 color=#fb4934><fc=#fb4934>%baticon% %battery%</fc></box>  <box type=Bottom width=2 mb=2 color=#b8bb26><fc=#b8bb26>%wlp41s0wi%</fc></box>   <box type=Bottom width=2 mb=2 color=#83a598><fc=#83a598><action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(dt/year-calendar))'`>%date%</action></fc></box>"
+       , template = " <fc=#1793d1><fn=1>%arch%</fn></fc> <fc=#666666>|</fc> %UnsafeStdinReader%  }{   %coretemp%   %cpu%   %memory%   %disku%   %wi% %dynnetwork%   %battery%   %alsa:default:Master%   %kbd%   %date%"
        }
 
