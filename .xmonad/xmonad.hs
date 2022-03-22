@@ -26,26 +26,6 @@ import System.IO (hPutStrLn)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-colorBack = "#282828"
-colorFore = "#ebdbb2"
-
-color01 = "#282828"
-color02 = "#cc241d"
-color03 = "#98971a"
-color04 = "#d79921"
-color05 = "#458588"
-color06 = "#b16286"
-color07 = "#689d6a"
-color08 = "#a89984"
-color09 = "#928374"
-color10 = "#fb4934"
-color11 = "#b8bb26"
-color12 = "#fabd2f"
-color13 = "#83a598"
-color14 = "#d3869b"
-color15 = "#8ec07c"
-color16 = "#ebdbb2"
-
 colorTrayer :: String
 colorTrayer = "--tint 0x282828"
 -- The preferred terminal program, which is used in a binding below and by
@@ -81,15 +61,15 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["\xe795", "\xe743", "\xf868", "\xf02d", "\xf308", "\xf001", "\xf192", "\xfcc1", "\xfcc2"]
+myWorkspaces    = [" \xe795 ", " \xe743 ", " \xf868 ", " \xf02d ", " \xf49c ", " \xf001 ", " \xf308 ", " \xfcc1 ", " \xfcc2 "]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
+myNormalBorderColor  = "#818589"
+myFocusedBorderColor = "#848884"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -147,11 +127,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
 
-    -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-
-    -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+    -- -- Increment the number of windows in the master area
+    -- , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+    --
+    -- -- Deincrement the number of windows in the master area
+    -- , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
@@ -190,15 +170,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    -- ++
+    ++
     --
     -- --
     -- -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     -- --
-    -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-    --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-    --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+        | (key, sc) <- zip [xK_apostrophe, xK_comma, xK_period] [0..]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 ------------------------------------------------------------------------
@@ -264,7 +244,10 @@ myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore 
+    , className =? "TelegramDesktop" --> doShift (myWorkspaces !! 2)
+    , className =? "BitWarden"      --> doShift (myWorkspaces !! 4)
+    ]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -292,10 +275,22 @@ myLogHook = return ()
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 --
--- By default, do nothing.
-myStartupHook = do
-        spawnOnce "picom --config $HOME/.config/picom/picom.conf --experimental-backends &"
-        spawnOnce "feh --bg-scale ~/Downloads/dark-sunset-wallpaper-3440x1440_15.jpg &"
+
+spawnToWorkspace :: String -> String -> X ()
+spawnToWorkspace program workspace = do
+                                      spawn program     
+                                      windows $ W.greedyView workspace
+-- spawnApps = composeAll
+--       [ spawnToWorkspace "google-chrome-stable" (myWorkspaces!!1)
+--       , spawnToWorkspace "telegram-desktop"     (myWorkspaces!!2)
+--       , spawnToWorkspace myTerminal             (myWorkspaces!!0)
+--       ]
+
+myStartupHook :: X()
+myStartupHook = composeAll
+      [ spawnOnce "picom --config $HOME/.config/picom/picom.conf --experimental-backends"
+      , spawnOnce "feh --bg-scale ~/.config/wallpapers/wallpaper.png"
+      ]
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -310,34 +305,36 @@ main = do
     , handleEventHook       = docksEventHook
     , modMask               = myModMask
     , terminal              = myTerminal
-    , startupHook           = myStartupHook
+    , startupHook           = myStartupHook -- <+> spawnApps
     , workspaces            = myWorkspaces
+    , normalBorderColor     = myNormalBorderColor
+    , focusedBorderColor    = myFocusedBorderColor
     , logHook               = dynamicLogWithPP $ xmobarPP
             -- xmobar settings
             { ppOutput = \x -> hPutStrLn xmproc x
-              , ppCurrent = xmobarColor color06 "" . wrap
-                            ("<fn=1><box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box></fn>"
+              , ppCurrent = xmobarColor "#b2beb5,#3e3e3e" "" . wrap
+                            "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"
 
                 -- Visible but not current workspace
-              , ppVisible = xmobarColor color06 "" . wrap 
-                            "<fn=1>" "</fn>"   . clickable
+              , ppVisible = xmobarColor "#848484,#3e3e3e" "" . wrap 
+                            "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"   . clickable
 
                 -- Hidden workspace
-              , ppHidden = xmobarColor color05 "" . wrap
-                           ("<fn=1><box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box></fn>" . clickable
+              , ppHidden = xmobarColor "#848484" "" . wrap
+                           ("<fn=1>") "</fn>" . clickable
 
                 -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor color05 ""  . wrap
+              , ppHiddenNoWindows = xmobarColor "#3e3e3e" ""  . wrap
                             "<fn=1>" "</fn>"   . clickable
 
                 -- Title of active window
-              , ppTitle = xmobarColor color16 "" . shorten 60
+              , ppTitle = xmobarColor "#ebdbb2" "" . shorten 60
 
                 -- Separator character
               , ppSep =  "<fc=#666666> | </fc>"
 
                 -- Urgent workspace
-              , ppUrgent = xmobarColor color02 "" 
+              , ppUrgent = xmobarColor "#cc241b" "" 
 
                 -- Adding # of windows on current workspace to the bar
               -- , ppExtras  = [windowCount]
