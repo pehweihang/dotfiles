@@ -312,29 +312,29 @@ main = do
     , logHook               = dynamicLogWithPP $ xmobarPP
             -- xmobar settings
             { ppOutput = \x -> hPutStrLn xmproc x
-              , ppCurrent = xmobarColor "#b2beb5,#3e3e3e" "" . wrap
+              , ppCurrent = xmobarColor "#d8dee9,#3b4252" "" . wrap
                             "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"
 
                 -- Visible but not current workspace
-              , ppVisible = xmobarColor "#848484,#3e3e3e" "" . wrap 
+              , ppVisible = xmobarColor "#81a1c1,#3b4252" "" . wrap 
                             "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"   . clickable
 
                 -- Hidden workspace
-              , ppHidden = xmobarColor "#848484" "" . wrap
+              , ppHidden = xmobarColor "#81a1c1" "" . wrap
                            ("<fn=1>") "</fn>" . clickable
 
                 -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor "#3e3e3e" ""  . wrap
+              , ppHiddenNoWindows = xmobarColor "#434c5e" ""  . wrap
                             "<fn=1>" "</fn>"   . clickable
 
                 -- Title of active window
-              , ppTitle = xmobarColor "#ebdbb2" "" . shorten 60
+              , ppTitle = xmobarColor "#d8dee9" "" . shorten 60
 
                 -- Separator character
-              , ppSep =  "<fc=#666666> | </fc>"
+              , ppSep =  "<fc=#4c566a> | </fc>"
 
                 -- Urgent workspace
-              , ppUrgent = xmobarColor "#cc241b" "" 
+              , ppUrgent = xmobarColor "#bf616a" "" 
 
                 -- Adding # of windows on current workspace to the bar
               -- , ppExtras  = [windowCount]
