@@ -18,8 +18,8 @@ Config { font            = "xft:MesloLGS NF:weight=bold:pixelsize=11:antialias=t
                            , "xft:Font Awesome 6 Free Solid:pixelsize=14"
                            , "xft:Font Awesome 6 Brands:pixelsize=14"
                            ]
-       , bgColor      = "#282828"
-       , fgColor      = "#ebdbb2"
+       , bgColor      = "#2E3440"
+       , fgColor      = "#D8DEE9"
        -- Position TopSize and BottomSize take 3 arguments:
        --   an alignment parameter (L/R/C) for Left, Right or Center.
        --   an integer for the percentage width, so 100 would be 100%.

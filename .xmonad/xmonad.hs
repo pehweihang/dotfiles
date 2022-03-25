@@ -43,7 +43,7 @@ myClickJustFocuses = True
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 0
+myBorderWidth   = 2
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -68,8 +68,8 @@ clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#818589"
-myFocusedBorderColor = "#848884"
+myNormalBorderColor  = "#2e3440"
+myFocusedBorderColor = "#81a1c1"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.

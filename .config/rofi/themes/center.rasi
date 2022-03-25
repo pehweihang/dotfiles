@@ -1,16 +1,16 @@
 * {
-    background-color:            #1d2021cc;
+    background-color:            #2e3440cc;
     border-color:                #282c34cc;
-    text-color:                  #d4be98cc;
+    text-color:                  #d8dee9cc;
     font:                        "mononoki Nerd Font Mono 12";
-    input-backgrond:           #3c3836cc;
+    input-backgrond:             #3c3836cc;
     prompt-font:                 "MesloLGS NF 12";
-    prompt-background:           #282828cc;
-    prompt-foreground:           #ddc7a1cc;
+    prompt-background:           #d8dee0cc;
+    prompt-foreground:           #3b4252cc;
     prompt-padding:              4px;
     alternate-normal-background: #1d2021cc;
     alternate-normal-foreground: @text-color;
-    selected-normal-background:  #504945cc;
+    selected-normal-background:  #4c566acc;
     selected-normal-foreground:  #ffffffcc;
     trasparent:                  rgba(0,0,0,0);
     spacing:                     3;
@@ -47,7 +47,7 @@
     text-color:       @selected-normal-foreground;
 }
 #element.alternate.normal {
-    background-color: @alternate-normal-background;
+    transparency: "screenshot";
     text-color:       @alternate-normal-foreground;
 }
 #scrollbar {
