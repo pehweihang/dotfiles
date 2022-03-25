@@ -77,7 +77,7 @@ myFocusedBorderColor = "#81a1c1"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ((modm .|. shiftMask, xK_Return), spawn (myTerminal ++ " -e zsh"))
 
     -- launch dmenu
     , ((modm,               xK_d     ), spawn "rofi -show drun")
