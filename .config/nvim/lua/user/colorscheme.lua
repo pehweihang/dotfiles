@@ -17,4 +17,5 @@ if not status_ok then
   vim.notify("colorscheme " .. colorscheme .. " not found!")
   return
 end
+vim.api.nvim_command('highlight IncSearch guibg=#4C566A')
 -- vim.api.nvim_command('highlight FloatBorder guibg=#45403d')
