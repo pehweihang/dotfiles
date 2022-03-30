@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.CycleWS (Direction1D(..), nextScreen, prevScreen)
 import XMonad.Actions.MouseResize
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops
@@ -14,13 +15,17 @@ import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBO
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.ShowWName
 import XMonad.Layout.Simplest
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..)) 
 import XMonad.Layout.WindowNavigation 
+
+import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Run (spawnPipe)
 
@@ -48,137 +53,124 @@ import qualified Data.Map        as M
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
-colorTrayer :: String
-colorTrayer = "--tint 0x282828"
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
---
+
+colorBack = "#2E3440"
+colorFore = "#ECEFF4"
+
+color01 = "#3B4252"
+color02 = "#434C5E"
+color03 = "#4C556A"
+color04 = "#D8DEE9"
+color05 = "#E5E9F0"
+color06 = "#ECEFF4"
+color07 = "#8FBCBB"
+color08 = "#88C0D0"
+color09 = "#81A1C1"
+color10 = "#5E81AC"
+color11 = "#BF616A"
+color12 = "#D08770"
+color13 = "#EBCB8B"
+color14 = "#A3BE8C"
+color15 = "#B48EAD"
+
+
+myFont          = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
 myTerminal      = "kitty"
 
--- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = False
 
--- Whether clicking on a window to focus also passes the click to the window
 myClickJustFocuses :: Bool
 myClickJustFocuses = True
 
--- Width of the window border in pixels.
---
 myBorderWidth   = 2
 
--- modMask lets you specify which modkey you want to use. The default
--- is mod1Mask ("left alt").  You may also consider using mod3Mask
--- ("right alt"), which does not conflict with emacs keybindings. The
--- "windows key" is usually mod4Mask.
---
 myModMask       = mod4Mask
 
--- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
 myWorkspaces    = [" \xe795 ", " \xe743 ", " \xf868 ", " \xf02d ", " \xf49c ", " \xf001 ", " \xf308 ", " \xfcc1 ", " \xfcc2 "]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where i = fromJust $ M.lookup ws myWorkspaceIndices
-  -- Border colors for unfocused and focused windows, respectively.
-  --
-myNormalBorderColor  = "#2e3440"
-myFocusedBorderColor = "#81a1c1"
 
-  ------------------------------------------------------------------------
-  -- Key bindings. Add, modify or remove key bindings here.
-  --
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myNormalBorderColor  = colorBack
+myFocusedBorderColor = colorFore
 
+
+myKeys :: [(String, X ())]
+myKeys = 
   -- launch a terminal
-  [ ((modm .|. shiftMask, xK_Return), spawn (myTerminal ++ " -e zsh"))
+  [ ("M-S-<Return>",                  spawn (myTerminal ++ " -e zsh"))
 
-    -- launch dmenu
-  , ((modm,               xK_d     ), spawn "rofi -show drun")
+    -- launch rofi
+  , ("M-d",                           spawn "rofi -show drun")
 
     -- close focused window
-  , ((modm,               xK_q     ), kill)
+  , ("M-q",                           kill)
 
     -- Rotate through the available layout algorithms
-  , ((modm,               xK_Tab   ), sendMessage NextLayout)
+  , ("M-<Tab>",                       sendMessage NextLayout)
     -- Toggles noborder/full
-  , ((modm,               xK_space ), sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+  , ("M-<Space>",                     sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
 
     --  Reset the layouts on the current workspace to default
-  , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+  , ("M-S-<Space>",                   sendMessage (T.Toggle "tall"))
 
     -- Resize viewed windows to the correct size
-  , ((modm,               xK_n     ), refresh)
+  , ("M-n",                           refresh)
 
     -- Move to windows
-  , ((modm,               xK_j     ), sendMessage $ Go D)
-
-  , ((modm,               xK_k     ), sendMessage $ Go U)
-
-  , ((modm,               xK_h     ), sendMessage $ Go L)
-
-  , ((modm,               xK_l     ), sendMessage $ Go R)
+  , ("M-j",                           sendMessage $ Go D)
+  , ("M-k",                           sendMessage $ Go U)
+  , ("M-h",                           sendMessage $ Go L)
+  , ("M-l",                           sendMessage $ Go R)
 
     -- Swap windows
-  , ((modm .|. shiftMask, xK_j     ), sendMessage $ Swap D)
+  , ("M-S-j",                         sendMessage $ Swap D)
+  , ("M-S-k",                         sendMessage $ Swap U)
+  , ("M-S-h",                         sendMessage $ Swap L)
+  , ("M-S-l",                         sendMessage $ Swap R)
 
-  , ((modm .|. shiftMask, xK_k     ), sendMessage $ Swap U)
+    -- change screen
+  , ("M-'",                           prevScreen)
+  , ("M-,",                           nextScreen)
 
-  , ((modm .|. shiftMask, xK_h     ), sendMessage $ Swap L)
-
-  , ((modm .|. shiftMask, xK_l     ), sendMessage $ Swap R)
+    -- sublayouts
+  , ("M-C-h", sendMessage $ pullGroup L)
+  , ("M-C-l", sendMessage $ pullGroup R)
+  , ("M-C-k", sendMessage $ pullGroup U)
+  , ("M-C-j", sendMessage $ pullGroup D)
+  , ("M-C-m", withFocused (sendMessage . MergeAll))
+  -- , ("M-C-u", withFocused (sendMessage . UnMerge))
+  , ("M-C-/", withFocused (sendMessage . UnMergeAll))
+  , ("M-C-'", onGroup W.focusDown')  -- Switch focus to prev tab
+  , ("M-C-,", onGroup W.focusUp')    -- Switch focus to next tab
 
     -- Push window back into tiling
-  , ((modm,               xK_t     ), withFocused $ windows . W.sink)
+  , ("M-t",                           withFocused $ windows . W.sink)
 
     -- Quit xmonad
-  , ((modm .|. shiftMask, xK_q     ), io exitSuccess)
+  , ("M-S-q",                         io exitSuccess)
 
   -- Restart xmonad
-  , ((modm              , xK_r     ), spawn "xmonad --recompile; xmonad --restart")
+  , ("M-r",                           spawn "xmonad --recompile; xmonad --restart")
 
 
   -- Audio keys
-  , ((0,                    xF86XK_AudioPlay), spawn "playerctl play-pause")
-  , ((0,                    xF86XK_AudioPrev), spawn "playerctl previous")
-  , ((0,                    xF86XK_AudioNext), spawn "playerctl next")
-  , ((0,                    xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-  , ((0,                    xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-  , ((0,                    xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("xF86XK_AudioPlay", spawn "playerctl play-pause")
+  , ("xF86XK_AudioPrev", spawn "playerctl previous")
+  , ("xF86XK_AudioNext", spawn "playerctl next")
+  , ("xF86XK_AudioRaiseVolume", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("xF86XK_AudioLowerVolume", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+  , ("xF86XK_AudioMute", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
 
-  -- Brightness keys
-  , ((0,                    xF86XK_MonBrightnessUp), spawn "brightnessctl s +10%")
-  , ((0,                    xF86XK_MonBrightnessDown), spawn "brightnessctl s 10-%")
-  , ((0,                    xF86XK_KbdBrightnessUp), spawn "brightnessctl -d apple::kbd_backlight s +10%")
-  , ((0,                    xF86XK_KbdBrightnessDown), spawn "brightnessctl -d apple::kbd_backlight s 10-%")
+  -- 
+  , ("xF86XK_MonBrightnessUp", spawn "brightnessctl s +10%")
+  , ("xF86XK_MonBrightnessDown", spawn "brightnessctl s 10-%")
+  , ("xF86XK_KbdBrightnessUp", spawn "brightnessctl -d apple::kbd_backlight s +10%")
+  , ("xF86XK_KbdBrightnessDown", spawn "brightnessctl -d apple::kbd_backlight s 10-%")
   ]
-  ++
-
-  --
-  -- mod-[1..9], Switch to workspace N
-  -- mod-shift-[1..9], Move client to workspace N
-  --
-  [((m .|. modm, k), windows $ f i)
-    | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
-  ]
-  ++
-    --
-    -- --
-    -- -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    -- --
-  [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-    | (key, sc) <- zip [xK_apostrophe, xK_comma, xK_period] [0..]
-    , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
   ------------------------------------------------------------------------
@@ -199,6 +191,7 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
            $ smartBorders
            $ windowNavigation
+           $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 8
@@ -206,6 +199,7 @@ tall     = renamed [Replace "tall"]
 magnify  = renamed [Replace "magnify"]
            $ smartBorders
            $ windowNavigation
+           $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ magnifier
            $ limitWindows 12
@@ -217,6 +211,7 @@ floats   = renamed [Replace "floats"]
 grid     = renamed [Replace "grid"]
            $ smartBorders
            $ windowNavigation
+           $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 8
@@ -225,6 +220,7 @@ grid     = renamed [Replace "grid"]
 threeCol = renamed [Replace "threeCol"]
            $ smartBorders
            $ windowNavigation
+           $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 7
            $ ThreeCol 1 (3/100) (1/2)
@@ -239,6 +235,15 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| grid
                                  ||| threeCol
 
+-- setting colors for tabs layout and tabs sublayout.
+myTabTheme = def { fontName            = myFont
+                 , activeColor         = color03
+                 , inactiveColor       = colorBack
+                 , activeBorderColor   = color03
+                 , inactiveBorderColor = colorBack
+                 , activeTextColor     = colorFore
+                 , inactiveTextColor   = color03
+                 }
 ------------------------------------------------------------------------
 -- Window rules:
 
@@ -340,7 +345,6 @@ main = do
     , focusFollowsMouse  = myFocusFollowsMouse
     , clickJustFocuses   = myClickJustFocuses
     , borderWidth        = myBorderWidth
-    , keys               = myKeys
     , handleEventHook    = docksEventHook
     , layoutHook         = myLayoutHook
     , modMask            = myModMask
@@ -351,29 +355,29 @@ main = do
     , logHook            = dynamicLogWithPP $ xmobarPP
             -- xmobar settings
             { ppOutput = \x -> hPutStrLn xmproc x
-              , ppCurrent = xmobarColor "#d8dee9,#3b4252" "" . wrap
+              , ppCurrent = xmobarColor (colorFore++","++color01) "" . wrap
                             "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"
 
                 -- Visible but not current workspace
-              , ppVisible = xmobarColor "#81a1c1,#3b4252" "" . wrap 
+              , ppVisible = xmobarColor (color09++","++color01) "" . wrap 
                             "<fn=1><box type=HBoth width=2, color=#282828>" "</box></fn>"   . clickable
 
                 -- Hidden workspace
-              , ppHidden = xmobarColor "#81a1c1" "" . wrap
-                           ("<fn=1>") "</fn>" . clickable
+              , ppHidden = xmobarColor color09 "" . wrap
+                           "<fn=1>" "</fn>" . clickable
 
                 -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor "#434c5e" ""  . wrap
+              , ppHiddenNoWindows = xmobarColor color02 ""  . wrap
                             "<fn=1>" "</fn>"   . clickable
 
                 -- Title of active window
-              , ppTitle = xmobarColor "#d8dee9" "" . shorten 60
+              , ppTitle = xmobarColor colorFore "" . shorten 60
 
                 -- Separator character
-              , ppSep =  "<fc=#4c566a> | </fc>"
+              , ppSep =  ("<fc="++color03++"> | </fc>")
 
                 -- Urgent workspace
-              , ppUrgent = xmobarColor "#bf616a" "" 
+              , ppUrgent = xmobarColor color11 "" 
 
                 -- Adding # of windows on current workspace to the bar
               -- , ppExtras  = [windowCount]
@@ -382,4 +386,4 @@ main = do
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
             } 
 
-    }
+    } `additionalKeysP` myKeys
