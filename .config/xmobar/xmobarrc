@@ -92,6 +92,6 @@ Config { font            = "xft:SauceCodePro Nerd Font:weight=bold:pixelsize=11:
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#1793d1><fn=1>%arch%</fn></fc> <fc=#4c566a>|</fc> %UnsafeStdinReader%  }{   %coretemp%   %cpu%   %memory%   %disku%   %wi% %dynnetwork%   %battery%   %alsa:default:Master%   %kbd%   %date%"
+       , template = " <fc=#1793d1><fn=1>%arch%</fn></fc> <fc=#4c566a>|</fc> %UnsafeStdinReader%  }{   %coretemp%   %cpu%   %memory%   %disku%   <action=`nm-connection-editor`>%wi% %dynnetwork%</action>   %battery%   <action=`pavucontrol`>%alsa:default:Master%</action>   %kbd%   %date%"
        }
 
