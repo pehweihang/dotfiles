@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Actions.MouseResize
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, docksEventHook, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 
@@ -253,6 +254,24 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+
+manageZoomHook =
+  composeAll $
+    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat
+    , (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
+    ]
+  where
+    zoomClassName = "zoom"
+    tileTitles =
+      [ "Zoom - Free Account"
+      , "Zoom - Licensed Account"
+      , "Zoom"
+      , "Zoom Meeting"
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    shouldSink title = title `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
+
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
     , className =? "file_progress"   --> doFloat
@@ -261,16 +280,15 @@ myManageHook = composeAll
     , className =? "error"           --> doFloat
     , className =? "Gimp"            --> doFloat
     , className =? "notification"    --> doFloat
-    , className =? "pinentry-gtk-2"  --> doFloat
     , className =? "splash"          --> doFloat
     , className =? "toolbar"         --> doFloat 
-    , className =? "MPlayer"          --> doFloat
-    , className =? "Gimp"             --> doFloat
+    , className =? "Nm-connection-editor" --> doFloat
+    , className =? "Pavucontrol" --> doFloat
     , className =? "TelegramDesktop"  --> doShift (myWorkspaces !! 2)
     , className =? "BitWarden"        --> doShift (myWorkspaces !! 4)
     , className =? "zoom"             --> doShift (myWorkspaces !! 3)
     , isFullscreen --> doFullFloat
-    ]
+    ] <+> manageZoomHook
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -281,15 +299,8 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = [manageZoomHook]
 
-------------------------------------------------------------------------
--- Status bars and logging
-
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
-myLogHook = return ()
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -323,17 +334,21 @@ myStartupHook = composeAll
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
-  xmonad $ defaults 
+  xmonad $ ewmh def 
     { manageHook            = myManageHook <+> manageDocks
-    , handleEventHook       = docksEventHook
-    , layoutHook            = myLayoutHook
-    , modMask               = myModMask
-    , terminal              = myTerminal
-    , startupHook           = myStartupHook -- <+> spawnApps
-    , workspaces            = myWorkspaces
-    , normalBorderColor     = myNormalBorderColor
-    , focusedBorderColor    = myFocusedBorderColor
-    , logHook               = dynamicLogWithPP $ xmobarPP
+    , terminal           = myTerminal
+    , focusFollowsMouse  = myFocusFollowsMouse
+    , clickJustFocuses   = myClickJustFocuses
+    , borderWidth        = myBorderWidth
+    , keys               = myKeys
+    , handleEventHook    = docksEventHook
+    , layoutHook         = myLayoutHook
+    , modMask            = myModMask
+    , startupHook        = myStartupHook -- <+> spawnApps
+    , workspaces         = myWorkspaces
+    , normalBorderColor  = myNormalBorderColor
+    , focusedBorderColor = myFocusedBorderColor
+    , logHook            = dynamicLogWithPP $ xmobarPP
             -- xmobar settings
             { ppOutput = \x -> hPutStrLn xmproc x
               , ppCurrent = xmobarColor "#d8dee9,#3b4252" "" . wrap
@@ -367,31 +382,4 @@ main = do
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
             } 
 
-    }
-
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-defaults = def {
-      -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
-
-      -- key bindings
-        keys               = myKeys,
-
-      -- hooks, layouts
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
     }
