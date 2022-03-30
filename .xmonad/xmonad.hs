@@ -90,6 +90,15 @@ myModMask       = mod4Mask
 
 myWorkspaces    = [" \xe795 ", " \xe743 ", " \xf868 ", " \xf02d ", " \xf49c ", " \xf001 ", " \xf308 ", " \xfcc1 ", " \xfcc2 "]
 
+-- Theme for showWName which prints current workspace when you change workspaces.
+myShowWNameTheme :: SWNConfig
+myShowWNameTheme = def
+    { swn_font              = "xft:SauceCodePro Nerd Font Mono:regular:size=60" 
+    , swn_fade              = 0.15
+    , swn_bgcolor           = colorBack
+    , swn_color             = colorFore
+    }
+
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where i = fromJust $ M.lookup ws myWorkspaceIndices
@@ -346,7 +355,7 @@ main = do
     , clickJustFocuses   = myClickJustFocuses
     , borderWidth        = myBorderWidth
     , handleEventHook    = docksEventHook
-    , layoutHook         = myLayoutHook
+    , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
     , modMask            = myModMask
     , startupHook        = myStartupHook -- <+> spawnApps
     , workspaces         = myWorkspaces
