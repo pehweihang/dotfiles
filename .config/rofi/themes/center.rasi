@@ -2,7 +2,7 @@
     background-color:            #2e3440cc;
     border-color:                #282c34cc;
     text-color:                  #d8dee9cc;
-    font:                        "mononoki Nerd Font Mono 12";
+    font:                        "SauceCodePro Nerd Font 12";
     input-backgrond:             #3c3836cc;
     prompt-font:                 "MesloLGS NF 12";
     prompt-background:           #d8dee0cc;
@@ -12,15 +12,18 @@
     alternate-normal-foreground: @text-color;
     selected-normal-background:  #4c566acc;
     selected-normal-foreground:  #ffffffcc;
-    trasparent:                  rgba(0,0,0,0);
+    transparent:                  rgba(0,0,0,0);
     spacing:                     3;
 }
 #window {
     transparency: "screenshot";
+    background-color: @background-color;
     border:  1;
+    border-radius: 5px;
     padding: 5;
 }
 #mainbox {
+    background-color: @transparent;
     border:  0;
     padding: 0;
 }
@@ -39,16 +42,19 @@
 }
 #element {
     transparency: "screenshot";
+    background-color: @transparent;
     border:  0;
+    border-radius: 5px;
     padding: 1px ;
+}
+#element.alternate.normal {
+    transparency: "screenshot";
+    background-color: @transparent;
+    text-color:       @alternate-normal-foreground;
 }
 #element.selected.normal {
     background-color: @selected-normal-background;
     text-color:       @selected-normal-foreground;
-}
-#element.alternate.normal {
-    transparency: "screenshot";
-    text-color:       @alternate-normal-foreground;
 }
 #scrollbar {
     width:        0px ;
@@ -60,20 +66,22 @@
     border: 2px dash 0px 0px ;
 }
 #button.selected {
-    background-color: @selected-normal-background;
+    background-color: @transparent;
     text-color:       @selected-normal-foreground;
 }
 #inputbar {
     spacing:    0;
     padding:    1px ;
+    border-radius: 5px 5px 0px 0px;
+    background-color: @transparent;
 }
 #case-indicator {
     spacing:    0;
 }
 #entry {
+    background-color: @transparent;
     padding: 4px 4px;
-    expand: false;
-    width: 10em;
+    expand: true;
 }
 #prompt {
     padding:          @prompt-padding;
