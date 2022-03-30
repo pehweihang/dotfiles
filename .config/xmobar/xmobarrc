@@ -1,16 +1,9 @@
--- Xmobar (http://projects.haskell.org/xmobar/)
--- This is one of the xmobar configurations for DTOS.
--- This config is packaged in the DTOS repo as 'dtos-xmobar'
--- Color scheme: Gruvbox Dark
 -- Dependencies: 
-   -- otf-font-awesome 
    -- ttf-mononoki 
-   -- ttf-ubuntu-font-family
-   -- htop
-   -- emacs
+   -- ttf-saucecodepro
    -- pacman (Arch Linux)
-   -- trayer
-   -- 'dtos-local-bin' (from dtos-core-repo)
+   -- nm-connection-editor
+   -- pavucontrol
 
 Config { font            = "xft:SauceCodePro Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:mononoki Nerd Font Mono:style=Regular:pixelsize=25"
@@ -89,9 +82,15 @@ Config { font            = "xft:SauceCodePro Nerd Font:weight=bold:pixelsize=11:
 
                         -- Prints out the left side items such as workspaces, layout, etc.
                     , Run UnsafeStdinReader
+
+                        -- Pacman Updates
+                    , Run Com "/home/weihang/.config/xmobar/pacupdate" [] "pacupdates" 36000
+
+                        -- Pacman icon
+                    , Run Com "echo" [""] "pacicon" 36000
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#1793d1><fn=1>%arch%</fn></fc> <fc=#4c566a>|</fc> %UnsafeStdinReader%  }{   %coretemp%   %cpu%   %memory%   %disku%   <action=`nm-connection-editor`>%wi% %dynnetwork%</action>   %battery%   <action=`pavucontrol`>%alsa:default:Master%</action>   %kbd%   %date%"
+       , template = " <fc=#1793d1><fn=1>%arch%</fn></fc> <fc=#4c566a>|</fc> %UnsafeStdinReader%  }{   <action=`kitty -e sudo pacman -Syu`><fn=1>%pacicon%</fn> %pacupdates%</action>   %coretemp%   %cpu%   %memory%   %disku%   <action=`nm-connection-editor`>%wi% %dynnetwork%</action>   %battery%   <action=`pavucontrol`>%alsa:default:Master%</action>   %kbd%   %date%"
        }
 
