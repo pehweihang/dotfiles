@@ -3,7 +3,7 @@ import XMonad.Actions.MouseResize
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, docksEventHook, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.LimitWindows (limitWindows)
@@ -282,8 +282,8 @@ myManageHook = composeAll
     , className =? "notification"    --> doFloat
     , className =? "splash"          --> doFloat
     , className =? "toolbar"         --> doFloat 
-    , className =? "Nm-connection-editor" --> doFloat
-    , className =? "Pavucontrol" --> doFloat
+    , className =? "Nm-connection-editor" --> doCenterFloat
+    , className =? "Pavucontrol" --> doCenterFloat
     , className =? "TelegramDesktop"  --> doShift (myWorkspaces !! 2)
     , className =? "BitWarden"        --> doShift (myWorkspaces !! 4)
     , className =? "zoom"             --> doShift (myWorkspaces !! 3)
