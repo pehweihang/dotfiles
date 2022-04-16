@@ -65,7 +65,6 @@ return packer.startup(function(use)
 	use("nathom/filetype.nvim")
 
 	-- Colorschemes
-	use("ellisonleao/gruvbox.nvim")
 	use("sainnhe/gruvbox-material")
   use("shaunsingh/nord.nvim")
 

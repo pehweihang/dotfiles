@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Actions.CycleWS (Direction1D(..), nextScreen, prevScreen)
 import XMonad.Actions.MouseResize
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.DynamicProperty
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, docksEventHook, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
@@ -28,19 +29,6 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Run (spawnPipe)
-
-import Graphics.X11.ExtraTypes.XF86 
-  ( xF86XK_AudioLowerVolume
-  , xF86XK_AudioRaiseVolume
-  , xF86XK_AudioMute
-  , xF86XK_MonBrightnessDown
-  , xF86XK_MonBrightnessUp
-  , xF86XK_KbdBrightnessDown
-  , xF86XK_KbdBrightnessUp
-  , xF86XK_AudioPlay
-  , xF86XK_AudioPrev
-  , xF86XK_AudioNext
-  )
 
 import Data.Maybe (fromJust)
 import Data.Monoid
@@ -167,18 +155,18 @@ myKeys =
 
 
   -- Audio keys
-  , ("xF86XK_AudioPlay", spawn "playerctl play-pause")
-  , ("xF86XK_AudioPrev", spawn "playerctl previous")
-  , ("xF86XK_AudioNext", spawn "playerctl next")
-  , ("xF86XK_AudioRaiseVolume", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-  , ("xF86XK_AudioLowerVolume", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-  , ("xF86XK_AudioMute", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("<XF86AudioPlay>", spawn "playerctl play-pause")
+  , ("<XF86AudioPrev>", spawn "playerctl previous")
+  , ("<XF86AudioNext>", spawn "playerctl next")
+  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+  , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
 
   -- 
-  , ("xF86XK_MonBrightnessUp", spawn "brightnessctl s +10%")
-  , ("xF86XK_MonBrightnessDown", spawn "brightnessctl s 10-%")
-  , ("xF86XK_KbdBrightnessUp", spawn "brightnessctl -d apple::kbd_backlight s +10%")
-  , ("xF86XK_KbdBrightnessDown", spawn "brightnessctl -d apple::kbd_backlight s 10-%")
+  , ("<XF86MonBrightnessUp>", spawn "brightnessctl -d acpi_video0 s +10%")
+  , ("<XF86MonBrightnessDown>", spawn "brightnessctl -d acpi_video0 s 10-%")
+  , ("<XF86KbdBrightnessUp>", spawn "brightnessctl -d apple::kbd_backlight s +10%")
+  , ("<XF86KbdBrightnessDown>", spawn "brightnessctl -d apple::kbd_backlight s 10-%")
   ]
 
 
@@ -313,7 +301,10 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = [manageZoomHook]
+myEventHook = mconcat
+              [ --dynamicTitle manageZoomHook
+               docksEventHook
+              ]
 
 
 ------------------------------------------------------------------------
@@ -354,7 +345,7 @@ main = do
     , focusFollowsMouse  = myFocusFollowsMouse
     , clickJustFocuses   = myClickJustFocuses
     , borderWidth        = myBorderWidth
-    , handleEventHook    = docksEventHook
+    , handleEventHook    = myEventHook
     , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
     , modMask            = myModMask
     , startupHook        = myStartupHook -- <+> spawnApps

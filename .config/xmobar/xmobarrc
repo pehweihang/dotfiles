@@ -84,7 +84,7 @@ Config { font            = "xft:SauceCodePro Nerd Font:weight=bold:pixelsize=11:
                     , Run UnsafeStdinReader
 
                         -- Pacman Updates
-                    , Run Com "/home/weihang/.config/xmobar/pacupdate" [] "pacupdates" 36000
+                    , Run Com ".config/xmobar/pacupdate" [] "pacupdates" 36000
 
                         -- Pacman icon
                     , Run Com "echo" [""] "pacicon" 36000

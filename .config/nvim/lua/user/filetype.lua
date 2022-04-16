@@ -37,7 +37,7 @@ filetype.setup({
 		-- 	end,
 		-- },
 		function_complex = {
-			["Dockerfile.*"] = function()
+			["Dockerfile*"] = function()
 				vim.bo.filetype = "Dockerfile"
 			end,
 		},
