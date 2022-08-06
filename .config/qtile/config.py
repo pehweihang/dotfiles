@@ -362,7 +362,7 @@ screens = [
                     fontsize=14,
                 ),
                 widget.WindowName(),
-                widget.Systray(background=colors["foreground"]),
+                widget.Systray(),
                 widget.TextBox(
                     text="|",
                     font="Ubuntu Mono",
