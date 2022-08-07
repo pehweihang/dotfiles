@@ -137,6 +137,7 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod, "control"], "q", lazy.spawn("power"), desc="Open power menu"),
     # Toggle between monitors
     Key([mod], "apostrophe", lazy.to_screen(0), desc="Focus monitor 1"),
     Key([mod], "comma", lazy.to_screen(1), desc="Focus monitor 2"),
@@ -285,11 +286,11 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
     background=colors["background"],
-    decorations=[
-        BorderDecoration(
-            colour=colors["background"], border_width=[4, 0, 4, 0]
-        )
-    ],
+    # decorations=[
+    #     BorderDecoration(
+    #         colour=colors["background"], border_width=[4, 0, 4, 0]
+    #     )
+    # ],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -300,23 +301,23 @@ groupbox_defaults = dict(
     # #
     active=colors["foreground"],
     inactive=colors["03"],
-    highlight_method="default",
+    highlight_method="block",
     highlight_color=colors["01"],
     block_highlight_text_color=colors["09"],
     #
-    this_current_screen_border=colors["04"],
-    this_screen_border=colors["03"],
-    other_current_screen_border=colors["04"],
-    other_screen_border=colors["03"],
+    this_current_screen_border=colors["03"],
+    this_screen_border=colors["background"],
+    other_current_screen_border=colors["03"],
+    other_screen_border=colors["background"],
     #
     urgent_border=colors["11"],
     #
     font="SauceCodePro Nerd Font Mono",
-    fontsize=20,
-    padding_x=5,
-    padding_y=-1,
+    fontsize=22,
+    padding_x=10,
+    padding_y=-4,
     borderwidth=2,
-    # spacing=5,
+    # spacing=10,
     rounded=True,
     #
     use_mouse_wheel=False,
@@ -328,166 +329,199 @@ def open_pavu():
     qtile.cmd_spawn("pavucontrol")
 
 
-screens = [
-    Screen(
+def create_widget_list():
+    widgets_list = [
+        widget.Sep(
+            linewidth=0,
+            padding=6,
+        ),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.CurrentLayoutIcon(
+            custom_icon_paths=[
+                os.path.expanduser("~/.config/qtile/icons"),
+            ],
+            foreground=colors["01"],
+            padding=-3,
+            scale=0.5,
+        ),
+        widget.CurrentLayout(),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.WindowName(),
+        widget.Spacer(),
+        widget.GroupBox(
+            **groupbox_defaults,
+            decorations=[
+                RectDecoration(
+                    colour=colors["16"],
+                    filled=True,
+                    padding_y=3,
+                )
+            ],
+        ),
+        widget.Spacer(),
+        widget.Systray(
+            decorations=[RectDecoration(colour=colors["16"], filled=True)],
+        ),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.TextBox(
+            text="ﮮ",
+            font=font,
+            fontsize=15,
+        ),
+        widget.CheckUpdates(
+            update_interval=1800,
+            distro="Arch_checkupdates",
+            display_format="{updates} updates",
+            no_update_string="no updates",
+            foreground=colors["foreground"],
+            colour_have_updates=colors["foreground"],
+            colour_no_updates=colors["foreground"],
+            # mouse_callbacks={
+            #     "Button1": lambda: qtile.cmd_spawn(
+            #         terminal + " -e sudo pacman -Syu"
+            #     )
+            # },
+            # padding=5,
+        ),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.TextBox(
+            text="",
+            font=font,
+            fontsize=15,
+        ),
+        widget.CPU(
+            format="{load_percent}%",
+        ),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.TextBox(
+            text="",
+            font=font,
+            fontsize=15,
+        ),
+        widget.ThermalSensor(),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.TextBox(
+            text="墳",
+            font=font,
+            fontsize=15,
+            mouse_callbacks={"Button3": open_pavu},
+        ),
+        widget.Volume(mouse_callbacks={"Button3": open_pavu}),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.Battery(
+            format="{char}",
+            charge_char="",
+            discharge_char="",
+            full_char="",
+            unknown_char="",
+            empty_char="",
+            show_short_text=False,
+            fontsize=15,
+        ),
+        widget.Battery(
+            format="{percent:2.0%} [{hour:d}:{min:02d}]",
+        ),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.Clock(format="%d %b %Y - %I:%M%P"),
+        widget.TextBox(
+            text="|",
+            font="Ubuntu Mono",
+            foreground=colors["02"],
+            padding=2,
+            fontsize=14,
+        ),
+        widget.TextBox(
+            text="⏻",
+            foreground=colors["10"],
+            fontsize=18,
+            padding=5,
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("power")},
+        ),
+        widget.Sep(
+            linewidth=0,
+            padding=10,
+        ),
+    ]
+    return widgets_list
+
+
+def create_main_screen():
+    return Screen(
         wallpaper="~/dotfiles/wallpapers/wallpaper.png",
         wallpaper_mode="fill",
         top=bar.Bar(
-            [
-                widget.Sep(
-                    linewidth=0,
-                    padding=6,
-                ),
-                widget.GroupBox(**groupbox_defaults),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.CurrentLayoutIcon(
-                    custom_icon_paths=[
-                        os.path.expanduser("~/.config/qtile/icons"),
-                    ],
-                    foreground=colors["01"],
-                    padding=-3,
-                    scale=0.5,
-                ),
-                widget.CurrentLayout(),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.WindowName(),
-                widget.Systray(),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
-                    text="ﮮ",
-                    font=font,
-                    fontsize=15,
-                ),
-                widget.CheckUpdates(
-                    update_interval=1800,
-                    distro="Arch_checkupdates",
-                    display_format="{updates} updates",
-                    no_update_string="no updates",
-                    foreground=colors["foreground"],
-                    colour_have_updates=colors["foreground"],
-                    colour_no_updates=colors["foreground"],
-                    # mouse_callbacks={
-                    #     "Button1": lambda: qtile.cmd_spawn(
-                    #         terminal + " -e sudo pacman -Syu"
-                    #     )
-                    # },
-                    # padding=5,
-                ),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
-                    text="",
-                    font=font,
-                    fontsize=15,
-                ),
-                widget.CPU(
-                    format="{load_percent}%",
-                ),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
-                    text="",
-                    font=font,
-                    fontsize=15,
-                ),
-                widget.ThermalSensor(),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
-                    text="墳",
-                    font=font,
-                    fontsize=15,
-                    mouse_callbacks={"Button3": open_pavu},
-                ),
-                widget.Volume(mouse_callbacks={"Button3": open_pavu}),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.Battery(
-                    format="{char}",
-                    charge_char="",
-                    discharge_char="",
-                    full_char="",
-                    unknown_char="",
-                    empty_char="",
-                    show_short_text=False,
-                    fontsize=15,
-                ),
-                widget.Battery(
-                    format="{percent:2.0%} [{hour:d}:{min:02d}]",
-                ),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.Clock(format="%d %b %Y - %I:%M%P"),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
-                    text="⏻",
-                    foreground=colors["10"],
-                    fontsize=18,
-                    padding=5,
-                    mouse_callbacks={
-                        "Button1": lambda: qtile.cmd_spawn("power")
-                    },
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    padding=10,
-                ),
-            ],
+            create_widget_list(),
             25,
             border_width=[0, 0, 2, 0],
             border_color=colors["01"],
         ),
-    ),
-]
+    )
+
+
+def create_other_screen():
+    widget_list = create_widget_list()
+    del widget_list[9:10]
+    return Screen(
+        wallpaper="~/dotfiles/wallpapers/wallpaper.png",
+        wallpaper_mode="fill",
+        top=bar.Bar(
+            widget_list,
+            25,
+            border_width=[0, 0, 2, 0],
+            border_color=colors["01"],
+        ),
+    )
+
+
+screens = [create_main_screen(), create_other_screen(), create_other_screen()]
 
 # Drag floating layouts.
 mouse = [
