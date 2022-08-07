@@ -9,14 +9,14 @@ configuration {
 
 * {
 	background-color:            #2e3440;
-    bg:                          #232831;
+  bg:                          #232831;
 	text-color:                  #eceff4;
 	selbg:                       #8fbcbb;
-	actbg:                       #4c566a;
+	actbg:                       #8fbcbb;
 	urgbg:                       #bf616a;
 	winbg:                       #8fbcbb;
 
-	selected-normal-foreground:  @winbg;
+	selected-normal-foreground:  @background-color;
 	normal-foreground:           @text-color;
 	selected-normal-background:  @actbg;
 	normal-background:           @background-color;
@@ -50,7 +50,7 @@ window {
 	children:	 [mainbox];
     border-radius: 12px;
     border: 1px solid;
-    border-color: #3b4252;
+    border-color: #242831;
 }
 
 mainbox {

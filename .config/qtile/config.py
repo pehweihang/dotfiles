@@ -297,24 +297,25 @@ extension_defaults = widget_defaults.copy()
 groupbox_defaults = dict(
     background=colors["background"],
     foregroud=colors["foreground"],
-    #
+    # #
     active=colors["foreground"],
     inactive=colors["03"],
-    highlight_method="block",
+    highlight_method="default",
     highlight_color=colors["01"],
     block_highlight_text_color=colors["09"],
     #
-    this_current_screen_border=colors["background"],
-    this_screen_border=colors["15"],
-    other_current_screen_border=colors["background"],
-    other_screen_border=colors["15"],
+    this_current_screen_border=colors["04"],
+    this_screen_border=colors["03"],
+    other_current_screen_border=colors["04"],
+    other_screen_border=colors["03"],
     #
     urgent_border=colors["11"],
     #
     font="SauceCodePro Nerd Font Mono",
     fontsize=20,
-    padding=5,
-    borderwidth=4,
+    padding_x=5,
+    padding_y=-1,
+    borderwidth=2,
     # spacing=5,
     rounded=True,
     #
@@ -379,6 +380,7 @@ screens = [
                     update_interval=1800,
                     distro="Arch_checkupdates",
                     display_format="{updates} updates",
+                    no_update_string="no updates",
                     foreground=colors["foreground"],
                     colour_have_updates=colors["foreground"],
                     colour_no_updates=colors["foreground"],
@@ -425,22 +427,6 @@ screens = [
                     fontsize=14,
                 ),
                 widget.TextBox(
-                    text="直",
-                    font=font,
-                    fontsize=15,
-                ),
-                widget.Wlan(
-                    format="{essid} [{percent:2.0%}]",
-                    disconnected_message="disconnected",
-                ),
-                widget.TextBox(
-                    text="|",
-                    font="Ubuntu Mono",
-                    foreground=colors["02"],
-                    padding=2,
-                    fontsize=14,
-                ),
-                widget.TextBox(
                     text="墳",
                     font=font,
                     fontsize=15,
@@ -476,13 +462,24 @@ screens = [
                 ),
                 widget.Clock(format="%d %b %Y - %I:%M%P"),
                 widget.TextBox(
+                    text="|",
+                    font="Ubuntu Mono",
+                    foreground=colors["02"],
+                    padding=2,
+                    fontsize=14,
+                ),
+                widget.TextBox(
                     text="⏻",
                     foreground=colors["10"],
                     fontsize=18,
-                    padding=10,
+                    padding=5,
                     mouse_callbacks={
                         "Button1": lambda: qtile.cmd_spawn("power")
                     },
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    padding=10,
                 ),
             ],
             25,
@@ -523,9 +520,14 @@ floating_layout = layout.Floating(
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(wm_class="Pavucontrol"),
+        Match(wm_class="Blueman-manager"),
+        Match(wm_class="Arandr"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-    ]
+    ],
+    border_width=2,
+    border_focus=colors["foreground"],
+    border_normal=colors["background"],
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"

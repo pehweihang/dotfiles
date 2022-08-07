@@ -14,9 +14,9 @@ configuration {
 	bg:				#2e3440;
   bg-alt:                         #232831;
 	fg:				#eceff4;
-	accent:				#4c566a;
-  accent-alt:                     #3b4252;
-	button:				#4c566a;
+	accent:				#8fbcbb;
+  accent-alt:                     #4c566a;
+	button:				#8fbcbb;
 
 	background-color:		@bg;
 	text-color:			@fg;
@@ -24,7 +24,7 @@ configuration {
 
 window {
   border:                         1px;
-  border-color:                   #3b4252;
+  border-color:                   #242831;
 	border-radius:                  7px;
 	width:			    	50%;
 	padding: 			32px;
@@ -49,7 +49,7 @@ inputbar {
 	children:			[ prompt, entry ];
     	background-color:               @bg-alt;
         border:                         0 5px solid 0 5px solid;
-        border-color:                   @accent;
+        border-color:                   @accent-alt;
     	expand:                         false;
     	border-radius:                  6px;
     	margin:                         0%;
@@ -100,5 +100,6 @@ element selected {
     	background-color:               @button;
         border:                         5px solid 0 5px solid 0;
         border-color:                   @accent;
-    	border-radius:                  6px;
+        text-color:                     @bg;
+    	/* border-radius:                  6px; */
 }

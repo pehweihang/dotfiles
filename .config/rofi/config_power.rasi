@@ -12,11 +12,12 @@ configuration {
   bg:                          #232831;
 	text-color:                  #eceff4;
 	selbg:                       #81a1c1;
-	actbg:                       #4c566a;
+  selfg:                       #2e344a;
+	actbg:                       #8fbcbb;
 	urgbg:                       #bf616a;
-	winbg:                       #66cccc;
+	winbg:                       #8fbcbb;
 
-	selected-normal-foreground:  @text-color;
+	selected-normal-foreground:  @selfg;
 	normal-foreground:           @text-color;
 	selected-normal-background:  @actbg;
 	normal-background:           @background-color;
@@ -51,7 +52,7 @@ window {
 	children:	 [mainbox];
     border-radius: 12px;
     border: 1px solid;
-    border-color: #3b4252;
+    border-color: #242831;
 }
 
 
