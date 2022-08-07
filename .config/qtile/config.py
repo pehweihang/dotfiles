@@ -315,7 +315,7 @@ groupbox_defaults = dict(
     font="SauceCodePro Nerd Font Mono",
     fontsize=22,
     padding_x=10,
-    padding_y=-4,
+    padding_y=-1,
     borderwidth=2,
     # spacing=10,
     rounded=True,
@@ -366,13 +366,12 @@ def create_widget_list():
                 RectDecoration(
                     colour=colors["16"],
                     filled=True,
-                    padding_y=3,
                 )
             ],
         ),
         widget.Spacer(),
         widget.Systray(
-            decorations=[RectDecoration(colour=colors["16"], filled=True)],
+            # decorations=[RectDecoration(colour=colors["16"], filled=True)],
         ),
         widget.TextBox(
             text="|",
@@ -480,7 +479,7 @@ def create_widget_list():
         ),
         widget.TextBox(
             text="⏻",
-            foreground=colors["10"],
+            foreground=colors["08"],
             fontsize=18,
             padding=5,
             mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("power")},
@@ -556,6 +555,7 @@ floating_layout = layout.Floating(
         Match(wm_class="Pavucontrol"),
         Match(wm_class="Blueman-manager"),
         Match(wm_class="Arandr"),
+        Match(wm_class="Galculator"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
     ],

@@ -112,6 +112,8 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias vim=nvim
+alias ls=exa
+alias cat=bat
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
