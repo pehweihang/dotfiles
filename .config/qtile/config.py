@@ -32,7 +32,7 @@ colors = {
 }
 
 mod = "mod4"
-terminal = "kitty zsh"
+terminal = "kitty -e zsh"
 
 
 keys = [
@@ -111,7 +111,7 @@ keys = [
     ),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    # Disable floating
+    # Toggle floating
     Key([mod], "t", lazy.window.toggle_floating()),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -261,8 +261,8 @@ for i, (name, kwargs) in enumerate(group_props, 1):
 layout_theme = {
     "border_width": 2,
     "margin": 16,
-    "border_focus": colors["foreground"],
-    "border_normal": colors["background"],
+    "border_focus": colors["07"],
+    "border_normal": colors["16"],
 }
 
 layouts = [
@@ -313,9 +313,9 @@ groupbox_defaults = dict(
     urgent_border=colors["11"],
     #
     font="SauceCodePro Nerd Font Mono",
-    fontsize=22,
+    fontsize=24,
     padding_x=10,
-    padding_y=-1,
+    padding_y=-3,
     borderwidth=2,
     # spacing=10,
     rounded=True,
@@ -327,6 +327,10 @@ groupbox_defaults = dict(
 
 def open_pavu():
     qtile.cmd_spawn("pavucontrol")
+
+
+def open_power():
+    qtile.cmd_spawn("power")
 
 
 def create_widget_list():
@@ -363,10 +367,7 @@ def create_widget_list():
         widget.GroupBox(
             **groupbox_defaults,
             decorations=[
-                RectDecoration(
-                    colour=colors["16"],
-                    filled=True,
-                )
+                RectDecoration(colour=colors["16"], filled=True, padding_y=3)
             ],
         ),
         widget.Spacer(),
@@ -482,7 +483,7 @@ def create_widget_list():
             foreground=colors["08"],
             fontsize=18,
             padding=5,
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("power")},
+            mouse_callbacks={"Button1": open_power()},
         ),
         widget.Sep(
             linewidth=0,
@@ -498,7 +499,7 @@ def create_main_screen():
         wallpaper_mode="fill",
         top=bar.Bar(
             create_widget_list(),
-            25,
+            30,
             border_width=[0, 0, 2, 0],
             border_color=colors["01"],
         ),
@@ -560,8 +561,8 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ],
     border_width=2,
-    border_focus=colors["foreground"],
-    border_normal=colors["background"],
+    border_focus=colors["07"],
+    border_normal=colors["16"],
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
