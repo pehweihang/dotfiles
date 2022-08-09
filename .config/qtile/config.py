@@ -367,7 +367,7 @@ def create_widget_list():
         widget.GroupBox(
             **groupbox_defaults,
             decorations=[
-                RectDecoration(colour=colors["16"], filled=True, padding_y=3)
+                RectDecoration(colour=colors["01"], filled=True, padding_y=3)
             ],
         ),
         widget.Spacer(),
@@ -483,7 +483,7 @@ def create_widget_list():
             foreground=colors["08"],
             fontsize=18,
             padding=5,
-            mouse_callbacks={"Button1": open_power()},
+            mouse_callbacks={"Button1": open_power},
         ),
         widget.Sep(
             linewidth=0,
