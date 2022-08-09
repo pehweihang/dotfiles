@@ -207,8 +207,8 @@ keys.extend(
             lazy.spawn(
                 "sh -c 'echo \""
                 + show_keys()
-                + '" | rofi -dmenu -theme ~/.config/rofi/config_tall.rasi"'
-                + '-i -p "?"\''
+                + '" | rofi -dmenu -theme ~/.config/rofi/config_tall.rasi'
+                + ' -i -p "?"\''
             ),
             desc="Print keyboard bindings",
         ),
@@ -313,10 +313,10 @@ groupbox_defaults = dict(
     highlight_color=colors["subtext0"],
     block_highlight_text_color=colors["blue"],
     #
-    this_current_screen_border=colors["surface2"],
-    this_screen_border=colors["base"],
-    other_current_screen_border=colors["surface2"],
-    other_screen_border=colors["base"],
+    this_current_screen_border=colors["overlay0"],
+    this_screen_border=colors["surface1"],
+    other_current_screen_border=colors["overlay0"],
+    other_screen_border=colors["surface1"],
     #
     urgent_border=colors["maroon"],
     #
@@ -331,6 +331,16 @@ groupbox_defaults = dict(
     use_mouse_wheel=False,
     disable_drag=True,
 )
+
+sep_line_defaults = dict(
+    text="|",
+    font="Ubuntu Mono",
+    foreground=colors["surface1"],
+    padding=2,
+    fontsize=14,
+)
+
+icon_defaults = dict(font=font, fontsize=15)
 
 
 def open_pavu():
@@ -347,13 +357,6 @@ def create_widget_list():
             linewidth=0,
             padding=6,
         ),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
         widget.CurrentLayoutIcon(
             custom_icon_paths=[
                 os.path.expanduser("~/.config/qtile/icons"),
@@ -362,20 +365,14 @@ def create_widget_list():
             scale=0.5,
         ),
         widget.CurrentLayout(),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
+        widget.TextBox(**sep_line_defaults),
         widget.WindowName(),
         widget.Spacer(),
         widget.GroupBox(
             **groupbox_defaults,
             decorations=[
                 RectDecoration(
-                    colour=colors["surface0"], filled=True, padding_y=3
+                    colour=colors["surface0"], filled=True, padding_y=1
                 )
             ],
         ),
@@ -383,18 +380,8 @@ def create_widget_list():
         widget.Systray(
             # decorations=[RectDecoration(colour=colors["16"], filled=True)],
         ),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
-        widget.TextBox(
-            text="ﮮ",
-            font=font,
-            fontsize=15,
-        ),
+        widget.TextBox(**sep_line_defaults),
+        widget.TextBox(text="ﮮ", **icon_defaults),
         widget.CheckUpdates(
             update_interval=1800,
             distro="Arch_checkupdates",
@@ -410,42 +397,19 @@ def create_widget_list():
             # },
             # padding=5,
         ),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
+        widget.TextBox(**sep_line_defaults),
         widget.TextBox(
             text="",
-            font=font,
-            fontsize=15,
+            **icon_defaults,
         ),
         widget.CPU(
             format="{load_percent}%",
         ),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
-        widget.TextBox(
-            text="",
-            font=font,
-            fontsize=15,
-        ),
+        widget.TextBox(**sep_line_defaults),
+        widget.TextBox(text="", **icon_defaults),
         widget.ThermalSensor(),
         widget.Volume(mouse_callbacks={"Button3": open_pavu}),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
+        widget.TextBox(**sep_line_defaults),
         widget.Battery(
             format="{char}",
             charge_char="",
@@ -459,21 +423,9 @@ def create_widget_list():
         widget.Battery(
             format="{percent:2.0%} [{hour:d}:{min:02d}]",
         ),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
+        widget.TextBox(**sep_line_defaults),
         widget.Clock(format="%d %b %Y - %I:%M%P"),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["surface0"],
-            padding=2,
-            fontsize=14,
-        ),
+        widget.TextBox(**sep_line_defaults),
         widget.TextBox(
             text="⏻",
             foreground=colors["sky"],
@@ -497,7 +449,7 @@ def create_main_screen():
             create_widget_list(),
             30,
             border_width=[0, 0, 2, 0],
-            border_color=colors["overlay1"],
+            border_color=colors["surface0"],
         ),
     )
 
@@ -512,7 +464,7 @@ def create_other_screen():
             widget_list,
             25,
             border_width=[0, 0, 2, 0],
-            border_color=colors["overlay1"],
+            border_color=colors["surface0"],
         ),
     )
 
