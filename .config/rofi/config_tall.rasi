@@ -8,13 +8,13 @@ configuration {
 }
 
 * {
-	background-color:            #2e3440;
-  bg:                          #232831;
-	text-color:                  #eceff4;
-	selbg:                       #8fbcbb;
-	actbg:                       #8fbcbb;
-	urgbg:                       #bf616a;
-	winbg:                       #8fbcbb;
+	background-color:            #24273a;
+  bg:                          #1e2030;
+	text-color:                  #cad3f5;
+	selbg:                       #8aadf4;
+	actbg:                       #8aadf4;
+	urgbg:                       #8aadf4;
+	winbg:                       #8aadf4;
 
 	selected-normal-foreground:  @background-color;
 	normal-foreground:           @text-color;

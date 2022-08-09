@@ -50,3 +50,6 @@ VteTerminal, vte-terminal {
      padding: 16px; }
  .pavucontrol-window .show-volume-meters-check-button {
    padding: 8px; }
+window > image {
+        color: #d8dee9;
+}

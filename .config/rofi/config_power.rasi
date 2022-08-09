@@ -8,14 +8,15 @@ configuration {
 @theme "/dev/null"
 
 * {
-	background-color:            #2e3440;
-  bg:                          #232831;
-	text-color:                  #eceff4;
+	background-color:            #24273a;
+  bg:                          #1e2030;
+	text-color:                  #cad3f5;
+	selbg:                       #8aadf4;
+	actbg:                       #8aadf4;
+	urgbg:                       #8aadf4;
+	winbg:                       #8aadf4;
 	selbg:                       #81a1c1;
-  selfg:                       #2e344a;
-	actbg:                       #8fbcbb;
-	urgbg:                       #bf616a;
-	winbg:                       #8fbcbb;
+  selfg:                       @background-color;
 
 	selected-normal-foreground:  @selfg;
 	normal-foreground:           @text-color;

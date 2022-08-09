@@ -5,30 +5,38 @@ from libqtile import bar, hook, layout, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from qtile_extras import widget
-from qtile_extras.widget.decorations import BorderDecoration, RectDecoration
+from qtile_extras.widget.decorations import RectDecoration
 
 font = "SauceCodePro Nerd Font"
 # font = 'arial'
 
 colors = {
-    "background": "#2E3440",
-    "foreground": "#ECEFF4",
-    "01": "#3B4252",
-    "02": "#434C5E",
-    "03": "#4C556A",
-    "04": "#D8DEE9",
-    "05": "#E5E9F0",
-    "06": "#ECEFF4",
-    "07": "#8FBCBB",
-    "08": "#88C0D0",
-    "09": "#81A1C1",
-    "10": "#5E81AC",
-    "11": "#BF616A",
-    "12": "#D08770",
-    "13": "#EBCB8B",
-    "14": "#A3BE8C",
-    "15": "#B48EAD",
-    "16": "#242831",
+    "rosewater": "#f4dbd6",
+    "flamingo": "#f0c6c6",
+    "pink": "#f5bde6",
+    "mauve": "#c6a0f6",
+    "red": "#ed8796",
+    "maroon": "#ee99a0",
+    "peach": "#f5a97f",
+    "yellow": "#eed49f",
+    "green": "#a6da95",
+    "teal": "#8bd5ca",
+    "sky": "#91d7e3",
+    "sapphire": "#7dc4e4",
+    "blue": "#8aadf4",
+    "lavender": "#b7bdf8",
+    "text": "#cad3f5",
+    "subtext1": "#b8c0e0",
+    "subtext0": "#a5adcb",
+    "overlay2": "#939ab7",
+    "overlay1": "#8087a2",
+    "overlay0": "#6e738d",
+    "surface2": "#5b6078",
+    "surface1": "#494d64",
+    "surface0": "#363a4f",
+    "base": "#24273a",
+    "mantle": "#1e2030",
+    "crust": "#181926",
 }
 
 mod = "mod4"
@@ -199,7 +207,8 @@ keys.extend(
             lazy.spawn(
                 "sh -c 'echo \""
                 + show_keys()
-                + '" | rofi -dmenu -theme ~/.config/rofi/config_tall.rasi -i -p "?"\''
+                + '" | rofi -dmenu -theme ~/.config/rofi/config_tall.rasi"'
+                + '-i -p "?"\''
             ),
             desc="Print keyboard bindings",
         ),
@@ -261,13 +270,12 @@ for i, (name, kwargs) in enumerate(group_props, 1):
 layout_theme = {
     "border_width": 2,
     "margin": 16,
-    "border_focus": colors["07"],
-    "border_normal": colors["16"],
+    "border_focus": colors["overlay1"],
+    "border_normal": colors["surface0"],
 }
 
 layouts = [
     layout.MonadTall(**layout_theme),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], **layout_theme),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -285,7 +293,7 @@ widget_defaults = dict(
     font=font,
     fontsize=12,
     padding=3,
-    background=colors["background"],
+    background=colors["mantle"],
     # decorations=[
     #     BorderDecoration(
     #         colour=colors["background"], border_width=[4, 0, 4, 0]
@@ -296,21 +304,21 @@ extension_defaults = widget_defaults.copy()
 
 
 groupbox_defaults = dict(
-    background=colors["background"],
-    foregroud=colors["foreground"],
+    background=colors["base"],
+    foregroud=colors["text"],
     # #
-    active=colors["foreground"],
-    inactive=colors["03"],
+    active=colors["text"],
+    inactive=colors["overlay0"],
     highlight_method="block",
-    highlight_color=colors["01"],
-    block_highlight_text_color=colors["09"],
+    highlight_color=colors["subtext0"],
+    block_highlight_text_color=colors["blue"],
     #
-    this_current_screen_border=colors["03"],
-    this_screen_border=colors["background"],
-    other_current_screen_border=colors["03"],
-    other_screen_border=colors["background"],
+    this_current_screen_border=colors["surface2"],
+    this_screen_border=colors["base"],
+    other_current_screen_border=colors["surface2"],
+    other_screen_border=colors["base"],
     #
-    urgent_border=colors["11"],
+    urgent_border=colors["maroon"],
     #
     font="SauceCodePro Nerd Font Mono",
     fontsize=24,
@@ -342,7 +350,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -350,7 +358,6 @@ def create_widget_list():
             custom_icon_paths=[
                 os.path.expanduser("~/.config/qtile/icons"),
             ],
-            foreground=colors["01"],
             padding=-3,
             scale=0.5,
         ),
@@ -358,7 +365,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -367,7 +374,9 @@ def create_widget_list():
         widget.GroupBox(
             **groupbox_defaults,
             decorations=[
-                RectDecoration(colour=colors["01"], filled=True, padding_y=3)
+                RectDecoration(
+                    colour=colors["surface0"], filled=True, padding_y=3
+                )
             ],
         ),
         widget.Spacer(),
@@ -377,7 +386,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -391,9 +400,9 @@ def create_widget_list():
             distro="Arch_checkupdates",
             display_format="{updates} updates",
             no_update_string="no updates",
-            foreground=colors["foreground"],
-            colour_have_updates=colors["foreground"],
-            colour_no_updates=colors["foreground"],
+            foreground=colors["text"],
+            colour_have_updates=colors["text"],
+            colour_no_updates=colors["text"],
             # mouse_callbacks={
             #     "Button1": lambda: qtile.cmd_spawn(
             #         terminal + " -e sudo pacman -Syu"
@@ -404,7 +413,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -419,7 +428,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -429,24 +438,11 @@ def create_widget_list():
             fontsize=15,
         ),
         widget.ThermalSensor(),
-        widget.TextBox(
-            text="|",
-            font="Ubuntu Mono",
-            foreground=colors["02"],
-            padding=2,
-            fontsize=14,
-        ),
-        widget.TextBox(
-            text="墳",
-            font=font,
-            fontsize=15,
-            mouse_callbacks={"Button3": open_pavu},
-        ),
         widget.Volume(mouse_callbacks={"Button3": open_pavu}),
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -466,7 +462,7 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
@@ -474,13 +470,13 @@ def create_widget_list():
         widget.TextBox(
             text="|",
             font="Ubuntu Mono",
-            foreground=colors["02"],
+            foreground=colors["surface0"],
             padding=2,
             fontsize=14,
         ),
         widget.TextBox(
             text="⏻",
-            foreground=colors["08"],
+            foreground=colors["sky"],
             fontsize=18,
             padding=5,
             mouse_callbacks={"Button1": open_power},
@@ -501,7 +497,7 @@ def create_main_screen():
             create_widget_list(),
             30,
             border_width=[0, 0, 2, 0],
-            border_color=colors["01"],
+            border_color=colors["overlay1"],
         ),
     )
 
@@ -516,7 +512,7 @@ def create_other_screen():
             widget_list,
             25,
             border_width=[0, 0, 2, 0],
-            border_color=colors["01"],
+            border_color=colors["overlay1"],
         ),
     )
 
@@ -547,7 +543,8 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
+        # Run the utility of `xprop` to see
+        # the wm class and name of an X client.
         *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
@@ -561,8 +558,8 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ],
     border_width=2,
-    border_focus=colors["07"],
-    border_normal=colors["16"],
+    border_focus=colors["surface0"],
+    border_normal=colors["overlay1"],
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"

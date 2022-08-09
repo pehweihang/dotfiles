@@ -3,13 +3,6 @@ if not status_ok then
 	return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
-	return
-end
-
-local tree_cb = nvim_tree_config.nvim_tree_callback
-
 nvim_tree.setup({
 	auto_reload_on_write = true,
 	create_in_closed_folder = false,
@@ -21,12 +14,15 @@ nvim_tree.setup({
 	open_on_setup = false,
 	open_on_setup_file = false,
 	open_on_tab = false,
+	ignore_buf_on_tab_change = {},
 	sort_by = "name",
 	root_dirs = {},
 	prefer_startup_root = false,
 	sync_root_with_cwd = false,
 	reload_on_bufenter = false,
 	respect_buf_cwd = false,
+	on_attach = "disable", -- function(bufnr). If nil, will use the deprecated mapping strategy
+	remove_keymaps = false, -- boolean (disable totally or not) or list of key (lhs)
 	view = {
 		adaptive_size = true,
 		centralize_selection = false,
@@ -38,10 +34,22 @@ nvim_tree.setup({
 		number = false,
 		relativenumber = false,
 		signcolumn = "yes",
+		-- @deprecated
 		mappings = {
 			custom_only = false,
 			list = {
 				-- user mappings go here
+			},
+		},
+		float = {
+			enable = false,
+			open_win_config = {
+				relative = "editor",
+				border = "rounded",
+				width = 30,
+				height = 30,
+				row = 1,
+				col = 1,
 			},
 		},
 	},
@@ -54,11 +62,12 @@ nvim_tree.setup({
 		root_folder_modifier = ":~",
 		indent_markers = {
 			enable = false,
+			inline_arrows = true,
 			icons = {
-				corner = "└ ",
-				edge = "│ ",
-				item = "│ ",
-				none = "  ",
+				corner = "└",
+				edge = "│",
+				item = "│",
+				none = " ",
 			},
 		},
 		icons = {
@@ -75,6 +84,17 @@ nvim_tree.setup({
 			glyphs = {
 				default = "",
 				symlink = "",
+				bookmark = "",
+				folder = {
+					arrow_closed = "",
+					arrow_open = "",
+					default = "",
+					open = "",
+					empty = "",
+					empty_open = "",
+					symlink = "",
+					symlink_open = "",
+				},
 				git = {
 					unstaged = "",
 					staged = "S",
@@ -83,13 +103,6 @@ nvim_tree.setup({
 					deleted = "",
 					untracked = "U",
 					ignored = "◌",
-				},
-				folder = {
-					default = "",
-					open = "",
-					empty = "",
-					empty_open = "",
-					symlink = "",
 				},
 			},
 		},
@@ -113,6 +126,7 @@ nvim_tree.setup({
 	diagnostics = {
 		enable = false,
 		show_on_dirs = false,
+		debounce_delay = 50,
 		icons = {
 			hint = "",
 			info = "",
@@ -121,13 +135,12 @@ nvim_tree.setup({
 		},
 	},
 	filters = {
-		dotfiles = true,
+		dotfiles = false,
 		custom = {},
 		exclude = {},
 	},
 	filesystem_watchers = {
-		enable = false,
-		interval = 100,
+		enable = true,
 		debounce_delay = 50,
 	},
 	git = {
@@ -146,6 +159,15 @@ nvim_tree.setup({
 		expand_all = {
 			max_folder_discovery = 300,
 			exclude = {},
+		},
+		file_popup = {
+			open_win_config = {
+				col = 1,
+				row = 1,
+				relative = "cursor",
+				border = "shadow",
+				style = "minimal",
+			},
 		},
 		open_file = {
 			quit_on_open = false,
@@ -178,6 +200,7 @@ nvim_tree.setup({
 			all = false,
 			config = false,
 			copy_paste = false,
+			dev = false,
 			diagnostics = false,
 			git = false,
 			profile = false,

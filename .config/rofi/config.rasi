@@ -11,12 +11,12 @@ configuration {
 @theme "/dev/null"
 
 * {
-	bg:				#2e3440;
-  bg-alt:                         #232831;
-	fg:				#eceff4;
-	accent:				#8fbcbb;
-  accent-alt:                     #4c566a;
-	button:				#8fbcbb;
+	bg:				#24273a;
+  bg-alt:                         #1e2030;
+	fg:				#cad3f5;
+	accent:				#393a4f;
+  accent-alt:                     #393a4f;
+	button:				#8aadf4;
 
 	background-color:		@bg;
 	text-color:			@fg;
