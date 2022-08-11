@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from libqtile import bar, hook, layout, qtile
+from libqtile.backend import base
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from qtile_extras import widget
@@ -408,7 +409,6 @@ def create_widget_list():
         widget.TextBox(**sep_line_defaults),
         widget.TextBox(text="", **icon_defaults),
         widget.ThermalSensor(),
-        widget.Volume(mouse_callbacks={"Button3": open_pavu}),
         widget.TextBox(**sep_line_defaults),
         widget.Battery(
             format="{char}",
@@ -488,6 +488,19 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
+
+def float_zoom_dialogs(win: base.Window):
+    if "zoom" in win.get_wm_class() and win.name not in [
+        "Zoom - Free Account",
+        "Zoom - Licensed Account",
+        "Zoom",
+        "Zoom Meeting",
+    ]:
+        return True
+
+    return False
+
+
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = False
@@ -508,6 +521,7 @@ floating_layout = layout.Floating(
         Match(wm_class="Galculator"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(func=float_zoom_dialogs)
     ],
     border_width=2,
     border_focus=colors["surface0"],
