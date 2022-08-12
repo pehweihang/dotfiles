@@ -24,7 +24,7 @@ nvim_tree.setup({
 	on_attach = "disable", -- function(bufnr). If nil, will use the deprecated mapping strategy
 	remove_keymaps = false, -- boolean (disable totally or not) or list of key (lhs)
 	view = {
-		adaptive_size = true,
+		adaptive_size = false,
 		centralize_selection = false,
 		width = 30,
 		height = 30,
@@ -111,10 +111,10 @@ nvim_tree.setup({
 	},
 	hijack_directories = {
 		enable = true,
-		auto_open = true,
+		auto_open = false,
 	},
 	update_focused_file = {
-		enable = false,
+		enable = true,
 		update_root = false,
 		ignore_list = {},
 	},

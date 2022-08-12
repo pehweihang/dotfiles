@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-vim.g.catppuccin_flavour = "macchiato"
+vim.g.catppuccin_flavour = "frappe"
 
 local colors = require("catppuccin.palettes").get_palette()
 
@@ -82,18 +82,18 @@ catppuccin.setup({
 		vim_sneak = false,
 		fern = false,
 		barbar = false,
-		bufferline = true,
+		bufferline = false,
 		markdown = true,
 		lightspeed = true,
 		ts_rainbow = false,
 		hop = false,
-		notify = true,
-		telekasten = true,
+		notify = false,
+		telekasten = false,
 		symbols_outline = true,
 		mini = false,
 		aerial = false,
-		vimwiki = true,
-		beacon = true,
+		vimwiki = false,
+		beacon = false,
 		navic = false,
 		overseer = false,
 	},

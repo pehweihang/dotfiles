@@ -87,10 +87,13 @@ return packer.startup(function(use)
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("REditorSupport/languageserver")
+	use("j-hui/fidget.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-media-files.nvim")
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use({ "gbrlsnchs/telescope-lsp-handlers.nvim" })
 
 	-- Treesitter
 	use({

@@ -115,7 +115,7 @@ alias vim=nvim
 alias ls=exa
 alias cat=bat
 
-export BAT_THEME="Catppuccin-macchiato"
+export BAT_THEME="Catppuccin-frappe"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

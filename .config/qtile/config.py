@@ -5,6 +5,7 @@ from libqtile import bar, hook, layout, qtile
 from libqtile.backend import base
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
@@ -12,32 +13,33 @@ font = "SauceCodePro Nerd Font"
 # font = 'arial'
 
 colors = {
-    "rosewater": "#f4dbd6",
-    "flamingo": "#f0c6c6",
-    "pink": "#f5bde6",
-    "mauve": "#c6a0f6",
-    "red": "#ed8796",
-    "maroon": "#ee99a0",
-    "peach": "#f5a97f",
-    "yellow": "#eed49f",
-    "green": "#a6da95",
-    "teal": "#8bd5ca",
-    "sky": "#91d7e3",
-    "sapphire": "#7dc4e4",
-    "blue": "#8aadf4",
-    "lavender": "#b7bdf8",
-    "text": "#cad3f5",
-    "subtext1": "#b8c0e0",
-    "subtext0": "#a5adcb",
-    "overlay2": "#939ab7",
-    "overlay1": "#8087a2",
-    "overlay0": "#6e738d",
-    "surface2": "#5b6078",
-    "surface1": "#494d64",
-    "surface0": "#363a4f",
-    "base": "#24273a",
-    "mantle": "#1e2030",
-    "crust": "#181926",
+    "transparent": "#00000000",
+    "rosewater": "#f2d5cf",
+    "flamingo": "#eebebe",
+    "pink": "#feb8e4",
+    "mauve": "ca9ee6",
+    "red": "e78284",
+    "maroon": "#ea999c",
+    "peach": "#ef9f76",
+    "yellow": "#e5c890",
+    "green": "#a6d189",
+    "teal": "#80c8be",
+    "sky": "#99d1db",
+    "sapphire": "#85c1dc",
+    "blue": "#8caaee",
+    "lavender": "#babbf1",
+    "text": "#c6d0f5",
+    "subtext1": "#b5bfe2",
+    "subtext0": "#a5adce",
+    "overlay2": "#949cbb",
+    "overlay1": "#838ba7",
+    "overlay0": "#737994",
+    "surface2": "#626880",
+    "surface1": "#51576d",
+    "surface0": "#414559",
+    "base": "#303446",
+    "mantle": "#292c3c",
+    "crust": "#232634",
 }
 
 mod = "mod4"
@@ -294,7 +296,7 @@ widget_defaults = dict(
     font=font,
     fontsize=12,
     padding=3,
-    background=colors["mantle"],
+    # background=colors["transparent"],
     # decorations=[
     #     BorderDecoration(
     #         colour=colors["background"], border_width=[4, 0, 4, 0]
@@ -305,7 +307,7 @@ extension_defaults = widget_defaults.copy()
 
 
 groupbox_defaults = dict(
-    background=colors["base"],
+    background=colors["mantle"],
     foregroud=colors["text"],
     # #
     active=colors["text"],
@@ -323,6 +325,7 @@ groupbox_defaults = dict(
     #
     font="SauceCodePro Nerd Font Mono",
     fontsize=24,
+    margin_x=10,
     padding_x=10,
     padding_y=-3,
     borderwidth=2,
@@ -331,6 +334,15 @@ groupbox_defaults = dict(
     #
     use_mouse_wheel=False,
     disable_drag=True,
+    #
+    decorations=[
+        RectDecoration(
+            colour=colors["crust"],
+            filled=True,
+            radius=8,
+            line_width=2,
+        ),
+    ],
 )
 
 sep_line_defaults = dict(
@@ -371,16 +383,9 @@ def create_widget_list():
         widget.Spacer(),
         widget.GroupBox(
             **groupbox_defaults,
-            decorations=[
-                RectDecoration(
-                    colour=colors["surface0"], filled=True, padding_y=1
-                )
-            ],
         ),
         widget.Spacer(),
-        widget.Systray(
-            # decorations=[RectDecoration(colour=colors["16"], filled=True)],
-        ),
+        widget.Systray(),
         widget.TextBox(**sep_line_defaults),
         widget.TextBox(text="ﮮ", **icon_defaults),
         widget.CheckUpdates(
@@ -441,16 +446,19 @@ def create_widget_list():
     return widgets_list
 
 
+bar_defaults = dict(
+    size=30,
+    background=colors["mantle"],
+    border_width=[0, 0, 2, 0],
+    border_color=colors["surface0"],
+)
+
+
 def create_main_screen():
     return Screen(
         wallpaper="~/dotfiles/wallpapers/wallpaper.png",
         wallpaper_mode="fill",
-        top=bar.Bar(
-            create_widget_list(),
-            30,
-            border_width=[0, 0, 2, 0],
-            border_color=colors["surface0"],
-        ),
+        top=bar.Bar(create_widget_list(), **bar_defaults),
     )
 
 
@@ -460,12 +468,7 @@ def create_other_screen():
     return Screen(
         wallpaper="~/dotfiles/wallpapers/wallpaper.png",
         wallpaper_mode="fill",
-        top=bar.Bar(
-            widget_list,
-            25,
-            border_width=[0, 0, 2, 0],
-            border_color=colors["surface0"],
-        ),
+        top=bar.Bar(widget_list, **bar_defaults),
     )
 
 
@@ -495,6 +498,7 @@ def float_zoom_dialogs(win: base.Window):
         "Zoom - Licensed Account",
         "Zoom",
         "Zoom Meeting",
+        "Zoom Cloud Meetings",
     ]:
         return True
 
@@ -521,7 +525,7 @@ floating_layout = layout.Floating(
         Match(wm_class="Galculator"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(func=float_zoom_dialogs)
+        Match(func=float_zoom_dialogs),
     ],
     border_width=2,
     border_focus=colors["surface0"],

@@ -106,13 +106,27 @@ telescope.setup({
 	},
 })
 
+telescope.load_extension("fzf")
+telescope.load_extension("lsp_handlers")
+
 -- neoclip
 -- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
+local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>f",
 	"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
-	{ noremap = true, silent = true }
+	opts
 )
-vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
-
+vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>Telescope live_grep<cr>", opts)
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>b",
+	"<cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
+	opts
+)
+vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>Telescope diagnostics<CR>", opts)
+vim.api.nvim_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+vim.api.nvim_set_keymap("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+vim.api.nvim_set_keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
