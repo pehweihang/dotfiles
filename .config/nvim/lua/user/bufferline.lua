@@ -76,7 +76,13 @@ bufferline.setup({
 
 vim.api.nvim_set_keymap("n", "<leader>z", ":Bdelete<CR>", { silent = true })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "alpha",
-	command = "setlocal showtabline=0",
+-- Remove statusline and tabline when in Alpha
+vim.api.nvim_create_autocmd({ "User" }, {
+	pattern = { "AlphaReady" },
+	callback = function()
+		vim.cmd([[
+      set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+    ]])
+	end,
 })
