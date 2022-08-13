@@ -63,15 +63,11 @@ return packer.startup(function(use)
 	use("ggandor/lightspeed.nvim")
 	use("tpope/vim-surround")
 	use("nathom/filetype.nvim")
-	-- use("rmagatti/auto-session")
-	-- use({
-	--	"rmagatti/session-lens",
-	--	requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-	--	config = function()
-	--		require("session-lens").setup({--[[your custom config--]]
-	--		})
-	--	end,
-	--})
+	use("stevearc/dressing.nvim")
+
+	-- session
+	use("rmagatti/auto-session")
+	use("rmagatti/session-lens")
 
 	-- Colorschemes
 	use("sainnhe/gruvbox-material")
