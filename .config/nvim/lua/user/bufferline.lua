@@ -65,7 +65,7 @@ bufferline.setup({
 		-- [focused and unfocused]. eg: { '|', '|' }
 		separator_style = "slant", -- | "thick" | "thin" | { 'any', 'any' },
 		enforce_regular_tabs = false,
-		always_show_bufferline = false,
+		always_show_bufferline = true,
 		sort_by = "id",
 		-- sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
 		--   -- add custom logic
@@ -75,3 +75,8 @@ bufferline.setup({
 })
 
 vim.api.nvim_set_keymap("n", "<leader>z", ":Bdelete<CR>", { silent = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "alpha",
+	command = "setlocal showtabline=0",
+})

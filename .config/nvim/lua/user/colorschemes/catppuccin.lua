@@ -82,7 +82,7 @@ catppuccin.setup({
 		vim_sneak = false,
 		fern = false,
 		barbar = false,
-		bufferline = false,
+		bufferline = true,
 		markdown = true,
 		lightspeed = true,
 		ts_rainbow = false,
@@ -97,10 +97,5 @@ catppuccin.setup({
 		navic = false,
 		overseer = false,
 	},
-	color_overrides = {},
-	highlight_overrides = {
-		BufferLineFill = { bg = "ff0000" },
-		BufferLineBackground = { bg = "ff0000" },
-		BufferLineBackcrust = { guibg = "ff0000" },
-	},
+	highlight_overrides = { all = { FloatBorder = { bg = colors.mantle } } },
 })
