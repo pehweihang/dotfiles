@@ -61,7 +61,7 @@ return packer.startup(function(use)
 	use("ellisonleao/glow.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("ggandor/lightspeed.nvim")
-	use("tpope/vim-surround")
+	use("kylechui/nvim-surround")
 	use("nathom/filetype.nvim")
 	use("stevearc/dressing.nvim")
 

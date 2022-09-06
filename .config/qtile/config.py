@@ -219,8 +219,9 @@ keys.extend(
 )
 
 group_props = [
-    ("TERMINAL", {"label": ""}),
-    ("WEB", {"label": "", "matches": [Match(wm_class="Google-chrome")]}),
+    ("TERMINAL1", {"label": ""}),
+    ("TERMINAL2", {"label": ""}),
+    ("WEB", {"label": ""}),
     (
         "MESSAGING",
         {
