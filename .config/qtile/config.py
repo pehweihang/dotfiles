@@ -285,7 +285,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadWide(),
+    layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -465,7 +465,7 @@ def create_main_screen():
 
 def create_other_screen():
     widget_list = create_widget_list()
-    del widget_list[9:10]
+    del widget_list[8:-1]
     return Screen(
         wallpaper="~/dotfiles/wallpapers/wallpaper.png",
         wallpaper_mode="fill",
@@ -529,8 +529,8 @@ floating_layout = layout.Floating(
         Match(func=float_zoom_dialogs),
     ],
     border_width=2,
-    border_focus=colors["surface0"],
-    border_normal=colors["overlay1"],
+    border_focus=colors["overlay1"],
+    border_normal=colors["surface0"],
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -547,7 +547,8 @@ wl_input_rules = None
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
+    if qtile.core.name == "x11":
+        subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
