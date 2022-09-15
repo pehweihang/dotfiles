@@ -280,7 +280,7 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(**layout_theme),
-    layout.Max(),
+    layout.Max(margin=[5, 16, 5, 16]),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -414,7 +414,7 @@ def create_widget_list():
         ),
         widget.TextBox(**sep_line_defaults),
         widget.TextBox(text="", **icon_defaults),
-        widget.ThermalSensor(),
+        widget.ThermalSensor(tag_sensor="Core 0"),
         widget.TextBox(**sep_line_defaults),
         widget.Battery(
             format="{char}",
@@ -448,10 +448,11 @@ def create_widget_list():
 
 
 bar_defaults = dict(
-    size=30,
+    size=35,
     background=colors["mantle"],
-    border_width=[0, 0, 2, 0],
-    border_color=colors["surface0"],
+    # border_width=2,
+    # border_color=colors["surface0"],
+    margin=[8, 16, 0, 16],
 )
 
 
