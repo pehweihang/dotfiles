@@ -153,6 +153,14 @@ keys = [
         ),
         desc="Screenshot",
     ),
+    Key(
+        [mod],
+        "c",
+        lazy.spawn(
+            os.path.expanduser("~/.config/rofi/bin/calculator"), shell=True
+        ),
+        desc="Calculator",
+    ),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
