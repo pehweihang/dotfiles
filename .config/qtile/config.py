@@ -140,15 +140,32 @@ keys = [
     Key(
         [mod],
         "d",
-        lazy.spawn("rofi -show drun"),
+        lazy.spawn(
+            os.path.expanduser("~/.config/rofi/bin/launcher"), shell=True
+        ),
         desc="Launch Rofi application launcher",
+    ),
+    Key(
+        [mod],
+        "s",
+        lazy.spawn(
+            os.path.expanduser("~/.config/rofi/bin/screenshot"), shell=True
+        ),
+        desc="Screenshot",
     ),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod, "control"], "q", lazy.spawn("power"), desc="Open power menu"),
+    Key(
+        [mod, "control"],
+        "q",
+        lazy.spawn(
+            os.path.expanduser("~/.config/rofi/bin/powermenu"), shell=True
+        ),
+        desc="Open power menu",
+    ),
     # Toggle between monitors
     Key([mod], "apostrophe", lazy.to_screen(0), desc="Focus monitor 1"),
     Key([mod], "comma", lazy.to_screen(1), desc="Focus monitor 2"),
@@ -357,14 +374,6 @@ sep_line_defaults = dict(
 icon_defaults = dict(font=font, fontsize=15)
 
 
-def open_pavu():
-    qtile.cmd_spawn("pavucontrol")
-
-
-def open_power():
-    qtile.cmd_spawn("power")
-
-
 def create_widget_list():
     widgets_list = [
         widget.Sep(
@@ -437,7 +446,11 @@ def create_widget_list():
             foreground=colors["sky"],
             fontsize=18,
             padding=5,
-            mouse_callbacks={"Button1": open_power},
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn(
+                    os.path.expanduser("~/.config/rofi/bin/powermenu")
+                )
+            },
         ),
         widget.Sep(
             linewidth=0,
