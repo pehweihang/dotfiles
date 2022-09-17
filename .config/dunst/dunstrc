@@ -34,7 +34,7 @@
     padding = 15
     horizontal_padding = 36
     frame_width = 3
-    # corner_radius = 12
+    corner_radius = 15
 
     #frame_color = 
     separator_color = auto
