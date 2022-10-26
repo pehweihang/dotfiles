@@ -66,8 +66,8 @@ return packer.startup(function(use)
 	use("stevearc/dressing.nvim")
 
 	-- session
-	use("rmagatti/auto-session")
-	use("rmagatti/session-lens")
+	-- use("rmagatti/auto-session")
+	-- use("rmagatti/session-lens")
 
 	-- Colorschemes
 	use("sainnhe/gruvbox-material")
