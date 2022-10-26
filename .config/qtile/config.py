@@ -3,9 +3,9 @@ import subprocess
 
 from libqtile import bar, hook, layout, qtile
 from libqtile.backend import base
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import (Click, Drag, DropDown, Group, Key, KeyChord,
+                             Match, ScratchPad, Screen)
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
@@ -108,13 +108,15 @@ keys = [
     Key(
         [mod, "control"],
         "h",
-        lazy.layout.grow_left(),
+        lazy.layout.shrink(),
+        lazy.layout.decrease_nmaster(),
         desc="Grow window to the left",
     ),
     Key(
         [mod, "control"],
         "l",
-        lazy.layout.grow_right(),
+        lazy.layout.grow(),
+        lazy.layout.increase_nmaster(),
         desc="Grow window to the right",
     ),
     Key(
@@ -203,6 +205,26 @@ keys = [
         "XF86AudioMute",
         lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
     ),
+    Key(
+        [],
+        "XF86MonBrightnessUp",
+        lazy.spawn("brightnessctl -d acpi_video0 s +10%"),
+    ),
+    Key(
+        [],
+        "XF86MonBrightnessDown",
+        lazy.spawn("brightnessctl -d acpi_video0 s 10-%"),
+    ),
+    Key(
+        [],
+        "XF86AudioMute",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+    ),
+    Key(
+        [],
+        "XF86AudioMute",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+    ),
 ]
 
 
@@ -240,13 +262,34 @@ keys.extend(
             ),
             desc="Print keyboard bindings",
         ),
+        KeyChord(
+            [mod],
+            "p",
+            [
+                Key(
+                    [],
+                    "p",
+                    lazy.group["scratchpad"].dropdown_toggle("pavucontrol"),
+                ),
+                Key(
+                    [],
+                    "b",
+                    lazy.group["scratchpad"].dropdown_toggle("bitwarden"),
+                ),
+                Key(
+                    [],
+                    "f",
+                    lazy.group["scratchpad"].dropdown_toggle("nautilus"),
+                ),
+            ],
+        ),
     ]
 )
 
 group_props = [
     ("TERMINAL1", {"label": ""}),
     ("TERMINAL2", {"label": ""}),
-    ("WEB", {"label": ""}),
+    ("WEB", {"label": "", "spawn": ["google-chrome-stable"]}),
     (
         "MESSAGING",
         {
@@ -256,18 +299,56 @@ group_props = [
                 Match(wm_class="discord"),
                 Match(wm_class="slack"),
             ],
+            "spawn": ["telegram-desktop", "discord"],
+        },
+    ),
+    (
+        "EMAIL",
+        {
+            "label": "",
+            "matches": [
+                Match(wm_class="Mailspring"),
+            ],
+            "spawn": "mailspring",
         },
     ),
     ("MUSIC", {"label": ""}),
-    ("DOCKER", {"label": ""}),
-    ("BITWARDEN", {"label": "", "matches": [Match(wm_class="Bitwarden")]}),
     ("ZOOM", {"label": "", "matches": [Match(wm_class="zoom")]}),
 ]
+
+scratchpad = ScratchPad(
+    "scratchpad",
+    [
+        DropDown(
+            "pavucontrol", "pavucontrol", height=0.6, width=0.6, x=0.2, y=0.2
+        ),
+        DropDown(
+            "bitwarden",
+            "bitwarden-desktop",
+            height=0.6,
+            width=0.6,
+            x=0.2,
+            y=0.2,
+        ),
+        DropDown(
+            "nautilus",
+            "nautilus",
+            height=0.6,
+            width=0.6,
+            x=0.2,
+            y=0.2,
+        ),
+    ],
+)
+
 
 groups = [
     Group(name, init=True, persist=True, **kwargs)
     for name, kwargs in group_props
 ]
+
+groups.append(scratchpad)
+
 for i, (name, kwargs) in enumerate(group_props, 1):
     keys.extend(
         [
@@ -548,6 +629,7 @@ floating_layout = layout.Floating(
         Match(wm_class="Galculator"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(title="Media viewer"),
         Match(func=float_zoom_dialogs),
     ],
     border_width=2,

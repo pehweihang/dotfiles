@@ -4,6 +4,5 @@ picom --config $HOME/.config/picom/picom.conf --experimental-backends &
 nm-applet &
 pasystray &
 blueman-applet &
-telegram-desktop &
-bitwarden-desktop &
 autorandr -c
+dbus-update-activation-environment --all
