@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+sink="Set Sink"
+source="Set Source"
+choices="$sink\n$source"
+chosen=$(echo -e $choices | rofi -dmenu -i -p Sound -theme "$HOME"/.config/rofi/config/launcher.rasi)
+                
+case $chosen in
+  $sink)
+    sink_index=0
+    default_sink=$(pactl get-default-sink)
+    for x in $(pactl list sinks | grep -ie "name:"|cut -d: -f2)
+    do
+      y=$(echo "$x"|xargs)
+      if [ $default_sink = $y ]
+      then
+        break
+      fi
+      let sink_index=$sink_index+1
+    done
+    rofi \
+      -modi "sink:~/.config/rofi/script/sink" \
+      -selected-row $sink_index \
+      -theme "$HOME"/.config/rofi/config/launcher.rasi \
+      -show
+    ;;
+  $source)
+    source_index=0
+    default_source=$(pactl get-default-source)
+    for x in $(pactl list sources | grep -ie "name:"|cut -d: -f2)
+    do
+      y=$(echo "$x"|xargs)
+      if [ $default_source = $y ]
+      then
+        break
+      fi
+      let source_index=$source_index+1
+    done
+
+    rofi \
+      -modi "source:~/.config/rofi/script/source" \
+      -selected-row $source_index \
+      -theme "$HOME"/.config/rofi/config/launcher.rasi \
+      -show
+    ;;
+esac
+
+
+

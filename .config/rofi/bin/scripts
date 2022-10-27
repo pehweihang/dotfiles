@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+chosen=$(ls ~/.config/rofi/bin | rofi sdow -dmenu)
+
+~/.config/rofi/bin/$chosen
