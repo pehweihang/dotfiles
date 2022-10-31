@@ -2,5 +2,5 @@
 
 rofi \
   -theme ~/.config/rofi/config/screenshot.rasi \
-  -modi "save to file:~/.config/rofi/script/screenshot-save,copy to clipboard:~/.config/rofi/script/screenshot-clipboard" \
+  -modi "copy to clipboard:~/.config/rofi/script/screenshot-clipboard,save to file:~/.config/rofi/script/screenshot-save" \
   -show 

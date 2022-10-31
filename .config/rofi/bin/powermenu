@@ -26,7 +26,7 @@ else
 		# suspend=""
 		# logout=""
   # Section 2
-	shutdown="襤"
+	shutdown="⏻"
 	reboot="ﰇ"
 	# lock=""
 	# suspend="鈴"
@@ -41,7 +41,7 @@ else
 		# suspend=" Sleep"
 		# logout=" Logout"
   # Section 2
-	shutdown="襤Shutdown"
+	shutdown="⏻ Shutdown"
 	reboot="ﰇ Restart"
 	# lock=" Lock"
 	# suspend="鈴Sleep"
