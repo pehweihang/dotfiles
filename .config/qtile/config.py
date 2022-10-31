@@ -208,22 +208,12 @@ keys = [
     Key(
         [],
         "XF86MonBrightnessUp",
-        lazy.spawn("brightnessctl -d acpi_video0 s +10%"),
+        lazy.spawn("brightnessctl s +5%"),
     ),
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("brightnessctl -d acpi_video0 s 10-%"),
-    ),
-    Key(
-        [],
-        "XF86AudioMute",
-        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-    ),
-    Key(
-        [],
-        "XF86AudioMute",
-        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+        lazy.spawn("brightnessctl s 5-%"),
     ),
 ]
 
@@ -279,7 +269,7 @@ keys.extend(
                 Key(
                     [],
                     "f",
-                    lazy.group["scratchpad"].dropdown_toggle("nautilus"),
+                    lazy.group["scratchpad"].dropdown_toggle("thunar"),
                 ),
             ],
         ),
@@ -299,7 +289,7 @@ group_props = [
                 Match(wm_class="discord"),
                 Match(wm_class="slack"),
             ],
-            "spawn": ["telegram-desktop", "discord"],
+            "spawn": ["telegram-desktop"],
         },
     ),
     (
@@ -309,7 +299,6 @@ group_props = [
             "matches": [
                 Match(wm_class="Mailspring"),
             ],
-            "spawn": "mailspring",
         },
     ),
     ("MUSIC", {"label": ""}),
@@ -331,8 +320,8 @@ scratchpad = ScratchPad(
             y=0.2,
         ),
         DropDown(
-            "nautilus",
-            "nautilus",
+            "thunar",
+            "thunar",
             height=0.6,
             width=0.6,
             x=0.2,
