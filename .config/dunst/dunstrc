@@ -78,7 +78,7 @@
     history_length = 20
 
     ### Misc/Advanced ###
-    dmenu = /usr/bin/rofi -dmenu:
+    dmenu = /usr/bin/rofi -dmenu
     browser = /usr/bin/linkhandler
     always_run_script = false
     title = Dunst

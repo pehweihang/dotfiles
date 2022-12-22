@@ -133,4 +133,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
-eval $(thefuck --alias)
+source ~/.config/zsh/catppuccin_frappe-zsh-syntax-highlighting.zsh
+
+export PATH=$PATH:~/.local/bin/

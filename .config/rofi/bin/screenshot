@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 rofi \
+  -m -4 \
   -theme ~/.config/rofi/config/screenshot.rasi \
   -modi "copy to clipboard:~/.config/rofi/script/screenshot-clipboard,save to file:~/.config/rofi/script/screenshot-save" \
   -show 

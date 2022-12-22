@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 rofi -show calc \
+  -m -4 \
   -modi calc \
   -no-show-match \
   -no-sort \

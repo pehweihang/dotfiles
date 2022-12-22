@@ -3,9 +3,11 @@ import subprocess
 
 from libqtile import bar, hook, layout, qtile
 from libqtile.backend import base
+from libqtile.backend.wayland import InputConfig
 from libqtile.config import (Click, Drag, DropDown, Group, Key, KeyChord,
                              Match, ScratchPad, Screen)
 from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
@@ -46,7 +48,7 @@ mod = "mod4"
 terminal = "kitty -e zsh"
 
 
-keys = [
+keys: list[Key | KeyChord] = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -273,13 +275,23 @@ keys.extend(
                 ),
             ],
         ),
+        KeyChord(
+            [mod],
+            "n",
+            [
+                Key([], "c", lazy.spawn("dunstctl close")),
+                Key([], "d", lazy.spawn("dunstctl close-all")),
+                Key([], "a", lazy.spawn("dunstctl context")),
+                Key([], "h", lazy.spawn("dunstctl history-pop")),
+            ],
+        ),
     ]
 )
 
 group_props = [
     ("TERMINAL1", {"label": ""}),
     ("TERMINAL2", {"label": ""}),
-    ("WEB", {"label": "", "spawn": ["google-chrome-stable"]}),
+    ("WEB", {"label": "", "spawn": []}),
     (
         "MESSAGING",
         {
@@ -289,7 +301,7 @@ group_props = [
                 Match(wm_class="discord"),
                 Match(wm_class="slack"),
             ],
-            "spawn": ["telegram-desktop"],
+            "spawn": ["env QT_QPA_PLATFORMTHEME=gtk3 telegram-desktop"],
         },
     ),
     (
@@ -302,31 +314,24 @@ group_props = [
         },
     ),
     ("MUSIC", {"label": ""}),
+    (
+        "GAME",
+        {
+            "label": "",
+            "matches": [Match(wm_class="New World"), Match(wm_class="Steam")],
+        },
+    ),
     ("ZOOM", {"label": "", "matches": [Match(wm_class="zoom")]}),
 ]
+
+scratchpad_config = dict(height=0.6, width=0.6, x=0.2, y=0.2)
 
 scratchpad = ScratchPad(
     "scratchpad",
     [
-        DropDown(
-            "pavucontrol", "pavucontrol", height=0.6, width=0.6, x=0.2, y=0.2
-        ),
-        DropDown(
-            "bitwarden",
-            "bitwarden-desktop",
-            height=0.6,
-            width=0.6,
-            x=0.2,
-            y=0.2,
-        ),
-        DropDown(
-            "thunar",
-            "thunar",
-            height=0.6,
-            width=0.6,
-            x=0.2,
-            y=0.2,
-        ),
+        DropDown("pavucontrol", "pavucontrol", **scratchpad_config),
+        DropDown("bitwarden", "bitwarden-desktop", **scratchpad_config),
+        DropDown("thunar", "thunar", **scratchpad_config),
     ],
 )
 
@@ -354,7 +359,7 @@ for i, (name, kwargs) in enumerate(group_props, 1):
             Key(
                 [mod, "shift"],
                 str(i),
-                lazy.window.togroup(name, switch_group=True),
+                lazy.window.togroup(name),
                 desc="Switch to & move focused window to group {}".format(
                     name
                 ),
@@ -503,6 +508,18 @@ def create_widget_list():
         widget.TextBox(text="", **icon_defaults),
         widget.ThermalSensor(tag_sensor="Core 0"),
         widget.TextBox(**sep_line_defaults),
+        # widget.UPowerWidget(
+        #     background=colors["mantle"],
+        #     border_charge_color=colors["red"],
+        #     border_color=colors["red"],
+        #     border_critical_color=colors["maroon"],
+        #     fill_charge=colors["green"],
+        #     fill_normal=colors["text"],
+        #     fill_critical=colors["maroon"],
+        #     fill_low=colors["text"],
+        # text_charging="{percentage:1.f}% [{ttf}]",
+        # text_discharging="{percentage:1.f}% [{tte}]",
+        # ),
         widget.Battery(
             format="{char}",
             charge_char="",
@@ -618,8 +635,8 @@ floating_layout = layout.Floating(
         Match(wm_class="Galculator"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(title="Media viewer"),
-        Match(func=float_zoom_dialogs),
+        # Match(title="Media viewer"),
+        # Match(func=float_zoom_dialogs),
     ],
     border_width=2,
     border_focus=colors["overlay1"],
@@ -641,7 +658,28 @@ wl_input_rules = None
 def start_once():
     home = os.path.expanduser("~")
     if qtile.core.name == "x11":
-        subprocess.call([home + "/.config/qtile/autostart.sh"])
+        subprocess.call([home + "/.config/qtile/autostart-x.sh"])
+    elif qtile.core.name == "wayland":
+        subprocess.call([home + "/.config/qtile/autostart-wayland.sh"])
+
+
+# @hook.subscribe.startup
+# def dbus_register():
+#     id = os.environ.get("DESKTOP_AUTOSTART_ID")
+#     if not id:
+#         return
+#     subprocess.Popen(
+#         [
+#             "dbus-send",
+#             "--session",
+#             "--print-reply",
+#             "--dest=org.gnome.SessionManager",
+#             "/org/gnome/SessionManager",
+#             "org.gnome.SessionManager.RegisterClient",
+#             "string:qtile",
+#             "string:" + id,
+#         ]
+#     )
 
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
