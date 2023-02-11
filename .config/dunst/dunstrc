@@ -139,3 +139,13 @@
     background = "#303446"
     foreground = "#cfd0f5"
     frame_color = "#ea999c"
+
+[volume]
+  appname = Volume
+  urgency = low
+  history_ignore = yes
+
+[brightness]
+  appname = Brightness
+  urgency = low
+  history_ignore = yes
