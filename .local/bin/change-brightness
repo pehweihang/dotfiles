@@ -1,0 +1,14 @@
+#!/bin/bash
+# changeVolume
+ 
+# Arbitrary but unique message tag
+msgTag="mybrightness"
+ 
+brightnessctl s "$@" > /dev/null
+ 
+brightness="$(brightnessctl | grep "Current brightness:" | sed 's/[)(]//g' | awk '{print $4}')"
+
+# Show the brightness notification
+dunstify -t 750 -a "Brightness" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
+-h int:value:"$brightness" "Brightness: ${brightness}"
+

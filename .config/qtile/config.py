@@ -195,27 +195,47 @@ keys: list[Key | KeyChord] = [
     Key(
         [],
         "XF86AudioRaiseVolume",
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+        lazy.spawn(
+            "{} +5%".format(
+                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
+            )
+        ),
     ),
     Key(
         [],
         "XF86AudioLowerVolume",
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        lazy.spawn(
+            "{} -5%".format(
+                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
+            )
+        ),
     ),
     Key(
         [],
         "XF86AudioMute",
-        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+        lazy.spawn(
+            "{} toggle".format(
+                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
+            )
+        ),
     ),
     Key(
         [],
         "XF86MonBrightnessUp",
-        lazy.spawn("brightnessctl s +5%"),
+        lazy.spawn(
+            "{} +5%".format(
+                os.path.expanduser("~/dotfiles/.local/bin/change-brightness")
+            )
+        ),
     ),
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("brightnessctl s 5-%"),
+        lazy.spawn(
+            "{} 5-%".format(
+                os.path.expanduser("~/dotfiles/.local/bin/change-brightness")
+            )
+        ),
     ),
 ]
 
@@ -273,6 +293,11 @@ keys.extend(
                     "f",
                     lazy.group["scratchpad"].dropdown_toggle("thunar"),
                 ),
+                Key(
+                    [],
+                    "r",
+                    lazy.group["scratchpad"].dropdown_toggle("ranger"),
+                ),
             ],
         ),
         KeyChord(
@@ -290,7 +315,6 @@ keys.extend(
 
 group_props = [
     ("TERMINAL1", {"label": ""}),
-    ("TERMINAL2", {"label": ""}),
     ("WEB", {"label": "", "spawn": []}),
     (
         "MESSAGING",
@@ -332,6 +356,7 @@ scratchpad = ScratchPad(
         DropDown("pavucontrol", "pavucontrol", **scratchpad_config),
         DropDown("bitwarden", "bitwarden-desktop", **scratchpad_config),
         DropDown("thunar", "thunar", **scratchpad_config),
+        DropDown("ranger", f"{terminal} -e ranger", **scratchpad_config),
     ],
 )
 
@@ -372,7 +397,7 @@ for i, (name, kwargs) in enumerate(group_props, 1):
     )
 
 layout_theme = {
-    "border_width": 2,
+    "border_width": 4,
     "margin": 16,
     "border_focus": colors["overlay1"],
     "border_normal": colors["surface0"],
@@ -441,7 +466,7 @@ groupbox_defaults = dict(
             colour=colors["crust"],
             filled=True,
             radius=8,
-            line_width=2,
+            line_width=0,
         ),
     ],
 )
