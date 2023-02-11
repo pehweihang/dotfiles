@@ -8,7 +8,7 @@ if [[ "$DIR" == "powermenus" ]]; then
 	shutdown=""
 	reboot=""
 	# lock=""
-	# suspend=""
+	suspend=""
 	logout=""
 	ddir="$HOME/.config/rofi/config"
 else
@@ -29,7 +29,7 @@ else
 	shutdown="⏻"
 	reboot="ﰇ"
 	# lock=""
-	# suspend="鈴"
+	suspend="鈴"
 	logout=""
 
 
@@ -44,7 +44,7 @@ else
 	shutdown="⏻ Shutdown"
 	reboot="ﰇ Restart"
 	# lock=" Lock"
-	# suspend="鈴Sleep"
+	suspend="鈴Suspend"
 	logout=" Logout"
 	fi
 	ddir="$HOME/.config/rofi/config"
@@ -66,7 +66,7 @@ show_msg() {
 
 # Variable passed to rofi
 # options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
-options="$logout\n$reboot\n$shutdown"
+options="$logout\n$suspend\n$reboot\n$shutdown"
 
 chosen="$(echo -e "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 0)"
 case $chosen in
@@ -93,19 +93,17 @@ case $chosen in
     # $lock)
     #     sh $HOME/.local/bin/lock
     #     ;;
-  #   $suspend)
-		# ans=$(rdialog &)
-		# if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-		# 	mpc -q pause
-		# 	amixer set Master mute
-		# 	sh $HOME/.local/bin/lock
-		# 	systemctl suspend
-		# elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
-		# 	exit
-  #       else
-		# 	show_msg
-  #       fi
-  #       ;;
+    $suspend)
+		ans=$(rdialog &)
+		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
+      pactl set-sink-mute @DEFAULT_SINK@ toggle
+			systemctl suspend
+		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
+			exit
+        else
+			show_msg
+        fi
+        ;;
     $logout)
 		ans=$(rdialog &)
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
