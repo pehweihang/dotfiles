@@ -1,5 +1,5 @@
 [global]
-    frame_color = "#8caaee"
+    frame_color = "#dc8a78"
     separator_color= frame
     ### Display ###
 
@@ -128,17 +128,17 @@
 #    history = ctrl+grave
 
 [urgency_low]
-    background = "#303446"
-    foreground = "#cfd0f5"
+    background = "#eff1f5"
+    foreground = "#4c4f69"
 
 [urgency_normal]
-    background = "#303446"
-    foreground = "#cfd0f5"
+    background = "#eff1f5"
+    foreground = "#4c4f69"
 
 [urgency_critical]
-    background = "#303446"
-    foreground = "#cfd0f5"
-    frame_color = "#ea999c"
+    background = "#eff1f5"
+    foreground = "#4c4f69"
+    frame_color = "#e64553"
 
 [volume]
   appname = Volume

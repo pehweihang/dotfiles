@@ -1,9 +1,12 @@
-include catppuccin-frappe
+include catppuccin-latte
 set smooth-scroll "true"
 set selection-clipboard clipboard
+set recolor true
 
 map u scroll half-up
 map d scroll half-down
 map D toggle_page_mode
 
 set show-recent 0
+
+set font 'monospace normal 10'

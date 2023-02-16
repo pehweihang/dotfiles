@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-sink="Set Sink"
-source="Set Source"
+sink="󱄠 Set Sink"
+source=" Set Source"
 choices="$sink\n$source"
 chosen=$(echo -e $choices | rofi -dmenu -i -p Sound -theme "$HOME"/.config/rofi/config/launcher.rasi)
                 

@@ -1,48 +1,49 @@
 import os
 import subprocess
 
+from catppuccin import Flavour
 from libqtile import bar, hook, layout, qtile
 from libqtile.backend import base
-from libqtile.backend.wayland import InputConfig
 from libqtile.config import (Click, Drag, DropDown, Group, Key, KeyChord,
                              Match, ScratchPad, Screen)
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
-font = "SauceCodePro Nerd Font"
+flavour = Flavour.latte()
+
+font = "JetBrainsMono Nerd Font"
 # font = 'arial'
 
-colors = {
-    "transparent": "#00000000",
-    "rosewater": "#f2d5cf",
-    "flamingo": "#eebebe",
-    "pink": "#feb8e4",
-    "mauve": "ca9ee6",
-    "red": "e78284",
-    "maroon": "#ea999c",
-    "peach": "#ef9f76",
-    "yellow": "#e5c890",
-    "green": "#a6d189",
-    "teal": "#80c8be",
-    "sky": "#99d1db",
-    "sapphire": "#85c1dc",
-    "blue": "#8caaee",
-    "lavender": "#babbf1",
-    "text": "#c6d0f5",
-    "subtext1": "#b5bfe2",
-    "subtext0": "#a5adce",
-    "overlay2": "#949cbb",
-    "overlay1": "#838ba7",
-    "overlay0": "#737994",
-    "surface2": "#626880",
-    "surface1": "#51576d",
-    "surface0": "#414559",
-    "base": "#303446",
-    "mantle": "#292c3c",
-    "crust": "#232634",
-}
+# colors = {
+#     "transparent": "#00000000",
+#     "rosewater": "#f2d5cf",
+#     "flamingo": "#eebebe",
+#     "pink": "#feb8e4",
+#     "mauve": "ca9ee6",
+#     "red": "e78284",
+#     "maroon": "#ea999c",
+#     "peach": "#ef9f76",
+#     "yellow": "#e5c890",
+#     "green": "#a6d189",
+#     "teal": "#80c8be",
+#     "sky": "#99d1db",
+#     "sapphire": "#85c1dc",
+#     "blue": "#8caaee",
+#     "lavender": "#babbf1",
+#     "text": "#c6d0f5",
+#     "subtext1": "#b5bfe2",
+#     "subtext0": "#a5adce",
+#     "overlay2": "#949cbb",
+#     "overlay1": "#838ba7",
+#     "overlay0": "#737994",
+#     "surface2": "#626880",
+#     "surface1": "#51576d",
+#     "surface0": "#414559",
+#     "base": "#303446",
+#     "mantle": "#292c3c",
+#     "crust": "#232634",
+# }
 
 mod = "mod4"
 terminal = "kitty -e zsh"
@@ -111,14 +112,12 @@ keys: list[Key | KeyChord] = [
         [mod, "control"],
         "h",
         lazy.layout.shrink(),
-        lazy.layout.decrease_nmaster(),
         desc="Grow window to the left",
     ),
     Key(
         [mod, "control"],
         "l",
         lazy.layout.grow(),
-        lazy.layout.increase_nmaster(),
         desc="Grow window to the right",
     ),
     Key(
@@ -148,22 +147,6 @@ keys: list[Key | KeyChord] = [
             os.path.expanduser("~/.config/rofi/bin/launcher"), shell=True
         ),
         desc="Launch Rofi application launcher",
-    ),
-    Key(
-        [mod],
-        "s",
-        lazy.spawn(
-            os.path.expanduser("~/.config/rofi/bin/screenshot"), shell=True
-        ),
-        desc="Screenshot",
-    ),
-    Key(
-        [mod],
-        "c",
-        lazy.spawn(
-            os.path.expanduser("~/.config/rofi/bin/calculator"), shell=True
-        ),
-        desc="Calculator",
     ),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -196,18 +179,14 @@ keys: list[Key | KeyChord] = [
         [],
         "XF86AudioRaiseVolume",
         lazy.spawn(
-            "{} +5%".format(
-                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
-            )
+            "{} +5%".format(os.path.expanduser("~/.local/bin/change-volume"))
         ),
     ),
     Key(
         [],
         "XF86AudioLowerVolume",
         lazy.spawn(
-            "{} -5%".format(
-                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
-            )
+            "{} -5%".format(os.path.expanduser("~/.local/bin/change-volume"))
         ),
     ),
     Key(
@@ -215,7 +194,7 @@ keys: list[Key | KeyChord] = [
         "XF86AudioMute",
         lazy.spawn(
             "{} toggle".format(
-                os.path.expanduser("~/dotfiles/.local/bin/change-volume")
+                os.path.expanduser("~/.local/bin/change-volume")
             )
         ),
     ),
@@ -224,7 +203,7 @@ keys: list[Key | KeyChord] = [
         "XF86MonBrightnessUp",
         lazy.spawn(
             "{} +5%".format(
-                os.path.expanduser("~/dotfiles/.local/bin/change-brightness")
+                os.path.expanduser("~/.local/bin/change-brightness")
             )
         ),
     ),
@@ -233,47 +212,15 @@ keys: list[Key | KeyChord] = [
         "XF86MonBrightnessDown",
         lazy.spawn(
             "{} 5-%".format(
-                os.path.expanduser("~/dotfiles/.local/bin/change-brightness")
+                os.path.expanduser("~/.local/bin/change-brightness")
             )
         ),
     ),
 ]
 
 
-def show_keys():
-    key_help = ""
-    for k in keys:
-        mods = ""
-
-        for m in k.modifiers:
-            if m == "mod4":
-                mods += "Super + "
-            else:
-                mods += m.capitalize() + " + "
-
-        if len(k.key) > 1:
-            mods += k.key.capitalize()
-        else:
-            mods += k.key
-
-        key_help += "{:<30} {}".format(mods, k.desc + "\n")
-
-    return key_help
-
-
 keys.extend(
     [
-        Key(
-            [mod],
-            "a",
-            lazy.spawn(
-                "sh -c 'echo \""
-                + show_keys()
-                + '" | rofi -dmenu -theme ~/.config/rofi/config_tall.rasi'
-                + ' -i -p "?"\''
-            ),
-            desc="Print keyboard bindings",
-        ),
         KeyChord(
             [mod],
             "p",
@@ -296,7 +243,7 @@ keys.extend(
                 Key(
                     [],
                     "r",
-                    lazy.group["scratchpad"].dropdown_toggle("ranger"),
+                    lazy.group["scratchpad"].dropdown_toggle("lf"),
                 ),
             ],
         ),
@@ -308,6 +255,31 @@ keys.extend(
                 Key([], "d", lazy.spawn("dunstctl close-all")),
                 Key([], "a", lazy.spawn("dunstctl context")),
                 Key([], "h", lazy.spawn("dunstctl history-pop")),
+            ],
+        ),
+        KeyChord(
+            [mod],
+            "m",
+            [
+                Key(
+                    [],
+                    "v",
+                    lazy.spawn(os.path.expanduser("~/.config/rofi/bin/sound")),
+                ),
+                Key(
+                    [],
+                    "s",
+                    lazy.spawn(
+                        os.path.expanduser("~/.config/rofi/bin/screenshot")
+                    ),
+                ),
+                Key(
+                    [],
+                    "c",
+                    lazy.spawn(
+                        os.path.expanduser("~/.config/rofi/bin/calculator")
+                    ),
+                ),
             ],
         ),
     ]
@@ -325,7 +297,11 @@ group_props = [
                 Match(wm_class="discord"),
                 Match(wm_class="slack"),
             ],
-            "spawn": ["env QT_QPA_PLATFORMTHEME=gtk3 telegram-desktop"],
+            "spawn": [
+                "env QT_QPA_PLATFORMTHEME=gtk3 telegram-desktop",
+                "slack",
+            ],
+            "layout": "max",
         },
     ),
     (
@@ -335,6 +311,13 @@ group_props = [
             "matches": [
                 Match(wm_class="Mailspring"),
             ],
+        },
+    ),
+    (
+        "WORK",
+        {
+            "label": "",
+            "matches": [Match(wm_class="Wfica")],
         },
     ),
     ("MUSIC", {"label": ""}),
@@ -356,7 +339,7 @@ scratchpad = ScratchPad(
         DropDown("pavucontrol", "pavucontrol", **scratchpad_config),
         DropDown("bitwarden", "bitwarden-desktop", **scratchpad_config),
         DropDown("thunar", "thunar", **scratchpad_config),
-        DropDown("ranger", f"{terminal} -e ranger", **scratchpad_config),
+        DropDown("lf", "kitty lfub", **scratchpad_config),
     ],
 )
 
@@ -399,18 +382,19 @@ for i, (name, kwargs) in enumerate(group_props, 1):
 layout_theme = {
     "border_width": 4,
     "margin": 16,
-    "border_focus": colors["overlay1"],
-    "border_normal": colors["surface0"],
+    "border_focus": flavour.rosewater.hex,
+    "border_normal": flavour.surface0.hex,
 }
 
 layouts = [
     layout.MonadTall(**layout_theme),
-    layout.Max(margin=[5, 16, 5, 16]),
+    # layout.Max(margin=[5, 16, 5, 16]),
+    layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadWide(**layout_theme),
+    # layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -422,10 +406,11 @@ widget_defaults = dict(
     font=font,
     fontsize=12,
     padding=3,
-    # background=colors["transparent"],
+    foreground=flavour.text.hex
+    # background=flavour.transparent.hex,
     # decorations=[
     #     BorderDecoration(
-    #         colour=colors["background"], border_width=[4, 0, 4, 0]
+    #         colour=flavour.background.hex, border_width=[4, 0, 4, 0]
     #     )
     # ],
 )
@@ -433,21 +418,21 @@ extension_defaults = widget_defaults.copy()
 
 
 groupbox_defaults = dict(
-    background=colors["mantle"],
-    foregroud=colors["text"],
+    background=flavour.mantle.hex,
+    foreground=flavour.text.hex,
     # #
-    active=colors["text"],
-    inactive=colors["overlay0"],
+    active=flavour.text.hex,
+    inactive=flavour.overlay0.hex,
     highlight_method="block",
-    highlight_color=colors["subtext0"],
-    block_highlight_text_color=colors["blue"],
+    highlight_color=flavour.subtext0.hex,
+    block_highlight_text_color=flavour.rosewater.hex,
     #
-    this_current_screen_border=colors["overlay0"],
-    this_screen_border=colors["surface1"],
-    other_current_screen_border=colors["overlay0"],
-    other_screen_border=colors["surface1"],
+    this_current_screen_border=flavour.overlay0.hex,
+    this_screen_border=flavour.surface1.hex,
+    other_current_screen_border=flavour.overlay0.hex,
+    other_screen_border=flavour.surface1.hex,
     #
-    urgent_border=colors["maroon"],
+    urgent_border=flavour.maroon.hex,
     #
     font="SauceCodePro Nerd Font Mono",
     fontsize=24,
@@ -461,20 +446,20 @@ groupbox_defaults = dict(
     use_mouse_wheel=False,
     disable_drag=True,
     #
-    decorations=[
-        RectDecoration(
-            colour=colors["crust"],
-            filled=True,
-            radius=8,
-            line_width=0,
-        ),
-    ],
+    # decorations=[
+    #     RectDecoration(
+    #         colour=flavour.crust.hex,
+    #         filled=True,
+    #         radius=8,
+    #         line_width=0,
+    #     ),
+    # ],
 )
 
 sep_line_defaults = dict(
     text="|",
     font="Ubuntu Mono",
-    foreground=colors["surface1"],
+    foreground=flavour.surface1.hex,
     padding=2,
     fontsize=14,
 )
@@ -497,7 +482,7 @@ def create_widget_list():
         ),
         widget.CurrentLayout(),
         widget.TextBox(**sep_line_defaults),
-        widget.WindowName(),
+        widget.WindowName(foreground=flavour.subtext1.hex),
         widget.Spacer(),
         widget.GroupBox(
             **groupbox_defaults,
@@ -511,9 +496,9 @@ def create_widget_list():
             distro="Arch_checkupdates",
             display_format="{updates} updates",
             no_update_string="no updates",
-            foreground=colors["text"],
-            colour_have_updates=colors["text"],
-            colour_no_updates=colors["text"],
+            foreground=flavour.text.hex,
+            colour_have_updates=flavour.text.hex,
+            colour_no_updates=flavour.text.hex,
             # mouse_callbacks={
             #     "Button1": lambda: qtile.cmd_spawn(
             #         terminal + " -e sudo pacman -Syu"
@@ -531,20 +516,10 @@ def create_widget_list():
         ),
         widget.TextBox(**sep_line_defaults),
         widget.TextBox(text="", **icon_defaults),
-        widget.ThermalSensor(tag_sensor="Core 0"),
+        widget.ThermalSensor(
+            tag_sensor="Core 0", foreground_alert=flavour.maroon.hex
+        ),
         widget.TextBox(**sep_line_defaults),
-        # widget.UPowerWidget(
-        #     background=colors["mantle"],
-        #     border_charge_color=colors["red"],
-        #     border_color=colors["red"],
-        #     border_critical_color=colors["maroon"],
-        #     fill_charge=colors["green"],
-        #     fill_normal=colors["text"],
-        #     fill_critical=colors["maroon"],
-        #     fill_low=colors["text"],
-        # text_charging="{percentage:1.f}% [{ttf}]",
-        # text_discharging="{percentage:1.f}% [{tte}]",
-        # ),
         widget.Battery(
             format="{char}",
             charge_char="",
@@ -559,19 +534,19 @@ def create_widget_list():
             format="{percent:2.0%} [{hour:d}:{min:02d}]",
         ),
         widget.TextBox(**sep_line_defaults),
-        widget.Clock(format="%d %b %Y - %I:%M%P"),
-        widget.TextBox(**sep_line_defaults),
-        widget.TextBox(
-            text="⏻",
-            foreground=colors["sky"],
-            fontsize=18,
-            padding=5,
-            mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(
-                    os.path.expanduser("~/.config/rofi/bin/powermenu")
-                )
-            },
-        ),
+        widget.Clock(format="%d %b %Y %I:%M%P"),
+        # widget.TextBox(**sep_line_defaults),
+        # widget.TextBox(
+        #     text="⏻",
+        #     foreground=flavour.sky.hex,
+        #     fontsize=18,
+        #     padding=5,
+        #     mouse_callbacks={
+        #         "Button1": lambda: qtile.cmd_spawn(
+        #             os.path.expanduser("~/.config/rofi/bin/powermenu")
+        #         )
+        #     },
+        # ),
         widget.Sep(
             linewidth=0,
             padding=10,
@@ -582,10 +557,10 @@ def create_widget_list():
 
 bar_defaults = dict(
     size=35,
-    background=colors["mantle"],
+    background=flavour.mantle.hex,
     # border_width=2,
-    # border_color=colors["surface0"],
-    margin=[8, 16, 0, 16],
+    # border_color=flavour.surface0.hex,
+    # margin=[8, 16, 0, 16],
 )
 
 
@@ -661,11 +636,11 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         # Match(title="Media viewer"),
-        # Match(func=float_zoom_dialogs),
+        Match(func=float_zoom_dialogs),
     ],
     border_width=2,
-    border_focus=colors["overlay1"],
-    border_normal=colors["surface0"],
+    border_focus=flavour.overlay1.hex,
+    border_normal=flavour.surface0.hex,
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -689,23 +664,6 @@ def start_once():
 
 
 # @hook.subscribe.startup
-# def dbus_register():
-#     id = os.environ.get("DESKTOP_AUTOSTART_ID")
-#     if not id:
-#         return
-#     subprocess.Popen(
-#         [
-#             "dbus-send",
-#             "--session",
-#             "--print-reply",
-#             "--dest=org.gnome.SessionManager",
-#             "/org/gnome/SessionManager",
-#             "org.gnome.SessionManager.RegisterClient",
-#             "string:qtile",
-#             "string:" + id,
-#         ]
-#     )
-
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

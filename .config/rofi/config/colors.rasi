@@ -1,12 +1,25 @@
+/* * { */
+/*     BG:    #303446ff; */
+/*     BGA:   #8AADF4ff; */
+/*     FG:    #CAD3F5ff; */
+/*     FGA:   #F28FADff; */
+/*     BDR:   #96CDFB00; */
+/*     SEL:   #181926ff; */
+/*     UGT:   #F28FADff; */
+/*     IMG:   #FAE3B0ff; */
+/*     OFF:   #575268ff; */
+/*     ON:    #ABE9B3ff; */
+/* } */
+
 * {
-    BG:    #303446ff;
-    BGA:   #8AADF4ff;
-    FG:    #CAD3F5ff;
+    BG:    #EFF1F5ff;
+    BGA:   #DC8A78ff;
+    FG:    #4C4F69ff;
     FGA:   #F28FADff;
-    BDR:   #96CDFB00;
-    SEL:   #181926ff;
-    UGT:   #F28FADff;
-    IMG:   #FAE3B0ff;
-    OFF:   #575268ff;
-    ON:    #ABE9B3ff;
+    BDR:   #DC8A78ff;
+    SEL:   #DCE0E8ff;
+    UGT:   #E64553ff;
+    IMG:   #DC8A78ff;
+    OFF:   #00ff00ff;
+    ON:    #0000ff00;
 }
