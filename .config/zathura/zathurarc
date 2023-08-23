@@ -1,7 +1,12 @@
 include catppuccin-latte
-set smooth-scroll "true"
+set guioptions "s"
 set selection-clipboard clipboard
 set recolor true
+set recolor-keephue true
+
+set link-zoom false
+set search-hadjust false
+
 
 map u scroll half-up
 map d scroll half-down
@@ -9,4 +14,13 @@ map D toggle_page_mode
 
 set show-recent 0
 
+set continuous-hist-save true
+
+set scroll-page-aware true
+set scroll-hstep 5
+
+set statusbar-page-percent true
+set statusbar-home-tilde true
+
 set font 'monospace normal 10'
+set highlight-transparency 0.8

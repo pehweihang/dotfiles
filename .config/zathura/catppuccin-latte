@@ -33,5 +33,5 @@ set render-loading-bg		      "#EFF1F5"
 set render-loading-fg		      "#4C4F69"
 
 set highlight-color		        "#575268"
-set highlight-fg              "#EA76CB"
-set highlight-active-color	  "#EA76CB"
+set highlight-fg              "#DC8A78"
+set highlight-active-color	  "#DC8A78"

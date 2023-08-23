@@ -27,9 +27,9 @@ else
 		# logout=""
   # Section 2
 	shutdown="⏻"
-	reboot="ﰇ"
+	reboot="󰜉"
 	# lock=""
-	suspend="鈴"
+	suspend="󰒲"
 	logout=""
 
 

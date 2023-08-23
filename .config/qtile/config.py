@@ -12,7 +12,7 @@ from qtile_extras.widget.decorations import RectDecoration
 
 flavour = Flavour.latte()
 
-font = "JetBrainsMono Nerd Font"
+font = "JetBrainsMono Nerd Font Mono"
 # font = 'arial'
 
 # colors = {
@@ -291,7 +291,7 @@ group_props = [
     (
         "MESSAGING",
         {
-            "label": "",
+            "label": "󰍩",
             "matches": [
                 Match(wm_class="TelegramDesktop"),
                 Match(wm_class="discord"),
@@ -301,13 +301,12 @@ group_props = [
                 "env QT_QPA_PLATFORMTHEME=gtk3 telegram-desktop",
                 "slack",
             ],
-            "layout": "max",
         },
     ),
     (
         "EMAIL",
         {
-            "label": "",
+            "label": "󰇮",
             "matches": [
                 Match(wm_class="Mailspring"),
             ],
@@ -325,7 +324,11 @@ group_props = [
         "GAME",
         {
             "label": "",
-            "matches": [Match(wm_class="New World"), Match(wm_class="Steam")],
+            "matches": [
+                Match(wm_class="New World"),
+                Match(wm_class="Steam"),
+                Match(wm_class="Lutris"),
+            ],
         },
     ),
     ("ZOOM", {"label": "", "matches": [Match(wm_class="zoom")]}),
@@ -434,7 +437,7 @@ groupbox_defaults = dict(
     #
     urgent_border=flavour.maroon.hex,
     #
-    font="SauceCodePro Nerd Font Mono",
+    font="JetBrainsMono Nerd Font Mono",
     fontsize=24,
     margin_x=10,
     padding_x=10,
@@ -490,7 +493,7 @@ def create_widget_list():
         widget.Spacer(),
         widget.Systray(),
         widget.TextBox(**sep_line_defaults),
-        widget.TextBox(text="ﮮ", **icon_defaults),
+        widget.TextBox(text="󰚰", **icon_defaults),
         widget.CheckUpdates(
             update_interval=1800,
             distro="Arch_checkupdates",
@@ -517,16 +520,18 @@ def create_widget_list():
         widget.TextBox(**sep_line_defaults),
         widget.TextBox(text="", **icon_defaults),
         widget.ThermalSensor(
-            tag_sensor="Core 0", foreground_alert=flavour.maroon.hex
+            tag_sensor="Core 0",
+            foreground=flavour.text.hex,
+            foreground_alert=flavour.maroon.hex,
         ),
         widget.TextBox(**sep_line_defaults),
         widget.Battery(
             format="{char}",
-            charge_char="",
-            discharge_char="",
-            full_char="",
-            unknown_char="",
-            empty_char="",
+            charge_char="󰂄",
+            discharge_char="󰂁",
+            full_char="󰂄",
+            unknown_char="󰂑",
+            empty_char="󰂎",
             show_short_text=False,
             fontsize=15,
         ),
@@ -638,8 +643,8 @@ floating_layout = layout.Floating(
         # Match(title="Media viewer"),
         Match(func=float_zoom_dialogs),
     ],
-    border_width=2,
-    border_focus=flavour.overlay1.hex,
+    border_width=4,
+    border_focus=flavour.rosewater.hex,
     border_normal=flavour.surface0.hex,
 )
 auto_fullscreen = True
