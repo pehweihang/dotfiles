@@ -263,6 +263,13 @@ keys.extend(
             [
                 Key(
                     [],
+                    "f",
+                    lazy.spawn(
+                        os.path.expanduser("~/.config/rofi/bin/xdg-open")
+                    ),
+                ),
+                Key(
+                    [],
                     "v",
                     lazy.spawn(os.path.expanduser("~/.config/rofi/bin/sound")),
                 ),

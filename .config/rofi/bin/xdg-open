@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+file="$(rg --no-messages  --files . | \
+    rofi \
+    -m -1 \
+    -scroll-method 0 \
+    -matching fuzzy \
+    -dmenu \
+    -sort \
+    -i \
+    -p "File" \
+    -theme "$HOME"/.config/rofi/config/launcher.rasi)"
+
+if [ ! -z "$file" ]
+then
+  xdg-open "$file"
+fi
