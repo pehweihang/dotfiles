@@ -12,5 +12,5 @@ file="$(rg --no-messages  --files . | \
 
 if [ ! -z "$file" ]
 then
-  xdg-open "$file"
+ xdg-open "$file"
 fi
