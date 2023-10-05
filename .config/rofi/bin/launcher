@@ -4,8 +4,9 @@ rofi \
 	-show drun \
 	-modi run,drun\
 	-scroll-method 0 \
+  -matching fuzzy \
 	-drun-match-fields all \
-	-drun-display-format "{name}" \
+	-drun-display-format "{name} [<span weight='light' size='small'>({exec})</span>]" \
 	-no-drun-show-actions \
 	-terminal kitty \
 	-theme "$HOME"/.config/rofi/config/launcher.rasi
