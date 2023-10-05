@@ -3,7 +3,7 @@
 sink="󱄠 Set Sink"
 source=" Set Source"
 choices="$sink\n$source"
-chosen=$(echo -e $choices | rofi -dmenu -i -p Sound -theme "$HOME"/.config/rofi/config/launcher.rasi)
+chosen=$(echo -e $choices | rofi -m -1 -dmenu -i -p Sound -theme "$HOME"/.config/rofi/config/launcher.rasi)
                 
 case $chosen in
   $sink)

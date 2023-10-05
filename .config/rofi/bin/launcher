@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 rofi \
-  -m -4 \
+  -m -1 \
 	-show drun \
 	-modi run,drun\
 	-scroll-method 0 \
