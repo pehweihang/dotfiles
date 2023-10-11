@@ -20,7 +20,7 @@ if [[ "$layout" == "TRUE" ]]; then
 else
 	screen="󰍹 Capture Desktop"
 	area="󰆞 Capture Area"
-	window="󰆞 Capture Window"
+	window=" Capture Window"
 	infive="󰔝 Take in 3s"
 	inten="󰔜 Take in 10s"
 fi
