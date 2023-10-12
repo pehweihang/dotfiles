@@ -586,7 +586,7 @@ def create_main_screen():
 
 def create_other_screen():
     widget_list = create_widget_list()
-    del widget_list[8:-1]
+    del widget_list[8:10]
     return Screen(
         wallpaper="~/dotfiles/wallpapers/wallpaper.png",
         wallpaper_mode="fill",
