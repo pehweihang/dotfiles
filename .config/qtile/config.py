@@ -87,37 +87,20 @@ keys: list[Key | KeyChord] = [
         lazy.layout.section_up(),
         desc="Move window up",
     ),
-    Key(
-        [mod, "shift"],
-        "h",
-        lazy.layout.shuffle_left(),
-        desc="Move window to the left",
-    ),
-    Key(
-        [mod, "shift"],
-        "l",
-        lazy.layout.shuffle_right(),
-        desc="Move window to the right",
-    ),
-    Key(
-        [mod, "shift"],
-        "j",
-        lazy.layout.shuffle_down(),
-        desc="Move window down",
-    ),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key(
         [mod, "control"],
         "h",
         lazy.layout.shrink(),
+        lazy.layout.grow_left(),
         desc="Grow window to the left",
     ),
     Key(
         [mod, "control"],
         "l",
         lazy.layout.grow(),
+        lazy.layout.grow_right(),
         desc="Grow window to the right",
     ),
     Key(
@@ -127,16 +110,7 @@ keys: list[Key | KeyChord] = [
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle floating
     Key([mod], "t", lazy.window.toggle_floating()),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
+    Key([mod], "Return", lazy.layout.toggle_split()),
     Key(
         [mod, "shift"], "Return", lazy.spawn(terminal), desc="Launch terminal"
     ),
@@ -397,12 +371,19 @@ layout_theme = {
 }
 
 layouts = [
-    layout.MonadTall(**layout_theme),
+    layout.Columns(
+        border_focus_stack=flavour.sky.hex,
+        border_normal_stack=flavour.lavender.hex,
+        insert_position=1,
+        border_on_single=True,
+        **layout_theme,
+    ),
+    # layout.MonadTall(**layout_theme),
     # layout.Max(margin=[5, 16, 5, 16]),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
+    # layout.Bsp(**layout_theme),
     # layout.Matrix(),
     # layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
