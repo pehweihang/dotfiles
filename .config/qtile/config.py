@@ -379,8 +379,8 @@ layouts = [
         **layout_theme,
     ),
     # layout.MonadTall(**layout_theme),
-    # layout.Max(margin=[5, 16, 5, 16]),
     layout.Max(),
+    layout.Max(margin=[5, 250, 5, 250]),  # for window sharing on ultrawide
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(**layout_theme),
