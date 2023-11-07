@@ -527,7 +527,7 @@ def create_widget_list():
             format="{percent:2.0%} [{hour:d}:{min:02d}]",
         ),
         widget.TextBox(**sep_line_defaults),
-        widget.Clock(format="%d %b %Y %I:%M%P"),
+        widget.Clock(format="%a %d %b %Y %I:%M%P"),
         # widget.TextBox(**sep_line_defaults),
         # widget.TextBox(
         #     text="⏻",
