@@ -7,6 +7,24 @@ KEYS_GNOME_SHELL=/org/gnome/shell/keybindings
 KEYS_MUTTER=/org/gnome/mutter/keybindings
 KEYS_MEDIA=/org/gnome/settings-daemon/plugins/media-keys
 
+# disable unwanted shortcuts
+dconf write ${KEYS_MEDIA}/help "@as []"
+dconf write ${KEYS_MEDIA}/magnifier "@as []"
+dconf write ${KEYS_MEDIA}/magnifier-zoom-in "@as []"
+dconf write ${KEYS_MEDIA}/magnifier-zoom-out "@as []"
+dconf write ${KEYS_MEDIA}/screenreader "@as []"
+dconf write ${KEYS_GNOME_WM}/activate-window-menu "@as []"
+dconf write ${KEYS_GNOME_WM}/begin-move "@as []"
+dconf write ${KEYS_GNOME_WM}/begin-resize "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle-group "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle_group-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle-panels "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle-panels-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle-windows "@as []"
+dconf write ${KEYS_GNOME_WM}/cycle-windows-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-input-source "['XF86Keyboard']"
+dconf write ${KEYS_GNOME_WM}/switch-input-source "['<Shift>XF86Keyboard']"
+
 # disable incompatible and conflicting shortcuts
 dconf write /org/gnome/mutter/wayland/keybindings/restore-shortcuts "@as []"
 dconf write ${KEYS_GNOME_SHELL}/switch-to-application-1 "@as []"
@@ -24,6 +42,26 @@ dconf write ${KEYS_MEDIA}/rotate-video-lock-static "@as []"
 dconf write ${KEYS_MUTTER}/toggle-tiled-left "@as []"
 dconf write ${KEYS_MUTTER}/toggle-tiled-right "@as []"
 dconf write ${KEYS_GNOME_WM}/minimize "@as []"
+dconf write ${KEYS_GNOME_WM}/maximize "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-monitor-down "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-monitor-left "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-monitor-right "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-monitor-up "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-workspace-down "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-workspace-left "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-workspace-right "@as []"
+dconf write ${KEYS_GNOME_WM}/move-to-workspace-up "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-application "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-application-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-group "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-group-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-panels "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-panels-backward "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-to-workspace-down "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-to-workspace-left "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-to-workspace-right "@as []"
+dconf write ${KEYS_GNOME_WM}/switch-to-workspace-up "@as []"
+dconf write ${KEYS_GNOME_WM}/unmaximize "@as []"
 
 # switch workspace shortcus
 dconf write ${KEYS_GNOME_SHELL}/switch-to-workspace-1 "['<Super>1']"
@@ -87,6 +125,11 @@ dconf write ${KEYS_POP}/tile-swap-right  "['Right', 'l']"
 dconf write ${KEYS_POP}/tile-swap-up     "['Up', 'k']"       
 dconf write ${KEYS_POP}/tile-swap-down   "['Down', 'j']"   
 
+# show overview
+dconf write ${KEYS_GNOME_WM}/toggle-overview "['<Super>d']"
+
+# logout
+dconf write ${KEYS_MEDIA}/logout "['<Shift><Super>q']"
 
 # close Window
 dconf write ${KEYS_GNOME_WM}/close "['<Super>q']"
