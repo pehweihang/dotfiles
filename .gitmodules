@@ -7,3 +7,6 @@
 [submodule ".config/zathura/catppuccin"]
 	path = .config/zathura/catppuccin
 	url = https://github.com/catppuccin/zathura
+[submodule ".config/kitty/catppuccin"]
+	path = .config/kitty/catppuccin
+	url = https://github.com/catppuccin/kitty
