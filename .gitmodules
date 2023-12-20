@@ -10,3 +10,15 @@
 [submodule ".config/kitty/catppuccin"]
 	path = .config/kitty/catppuccin
 	url = https://github.com/catppuccin/kitty
+[submodule ".config/zsh/zsh-vi-mode"]
+	path = .config/zsh/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode
+[submodule ".config/zsh/zsh-syntax-highlighting"]
+	path = .config/zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".config/zsh/zsh-autosuggestions"]
+	path = .config/zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule ".config/zsh/conda-zsh-completion"]
+	path = .config/zsh/conda-zsh-completion
+	url = https://github.com/conda-incubator/conda-zsh-completion
