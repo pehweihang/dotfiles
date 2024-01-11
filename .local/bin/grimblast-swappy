@@ -42,6 +42,6 @@ rm "$temp_screenshot"
 
 if [ -f "$save_dir/$save_file" ] ; then
     echo saved!
-    notify-send "Screenshot" "Saved screenshot $save_dir/$save_file" -i "$save_dir/$save_file"
+    notify-send "Screenshot" "Saved screenshot $save_dir/$save_file" -i "$save_dir/$save_file" -a "Screenshot"
 fi
 
