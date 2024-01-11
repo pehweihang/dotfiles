@@ -22,3 +22,6 @@
 [submodule ".config/zsh/conda-zsh-completion"]
 	path = .config/zsh/conda-zsh-completion
 	url = https://github.com/conda-incubator/conda-zsh-completion
+[submodule ".config/hypr/catppuccin"]
+	path = .config/hypr/catppuccin
+	url = https://github.com/catppuccin/hyprland.git
