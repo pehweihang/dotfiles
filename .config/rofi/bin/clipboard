@@ -5,6 +5,6 @@ cliphist list \
     -m -1 \
     -theme ~/.config/rofi/config/launcher.rasi \
     -p Clipboard \
-    -dmenu \ 
+    -dmenu -- \
   | cliphist decode \
   | wl-copy
