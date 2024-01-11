@@ -17,7 +17,7 @@ alias gc="git commit -v"
 
 export EDITOR=nvim
 
-source ~/.config/zsh/catppuccin_frappe-zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-syntax-highlighting-theme.zsh
 source ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
