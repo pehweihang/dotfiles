@@ -161,12 +161,12 @@
     "format-icons": {
       "notification": "",
       "none": "",
-      "dnd-notification": "⏾",
-      "dnd-none": "⏾",
-      "inhibited-notification": "⏾",
+      "dnd-notification": "󰤄<span font_family=\"Inter\"> </span>",
+      "dnd-none": "󰤄",
+      "inhibited-notification": "󰤄<span font_family=\"Inter\"> </span>",
       "inhibited-none": "",
-      "dnd-inhibited-notification": "⏾",
-      "dnd-inhibited-none": "⏾"
+      "dnd-inhibited-notification": "󰤄<span font_family=\"Inter\"> </span>",
+      "dnd-inhibited-none": "󰤄"
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
