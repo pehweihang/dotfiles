@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+rofi \
+  -m -1 \
+  -theme ~/.config/rofi/config/launcher.rasi \
+  -modi "Tailscale:~/.config/rofi/script/tailscale" \
+  -show 

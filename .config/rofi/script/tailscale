@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+tailscale_up="󰔡 Tailscale up"
+tailscale_down="󰔢 Tailscale down"
+accept_routes="󰑩 Accept routes"
+reject_routes="󰑩 Reject routes"
+exit_node="󰿅 Set exit node"
+
+turn_off_exit_node="Turn off exit node"
+
+tailscale_is_up=`tailscale status --json | jq ".Self.Online"`
+
+turn_tailscale_up() {
+  pkexec tailscale up
+}
+
+turn_tailscale_down() {
+  pkexec tailscale down
+}
+choose_exit_node() {
+  options="\0data\x1fexit_node\n$turn_off_exit_node\n"
+  while read p ; do
+    is_exit_node=`echo $p | jq ".ExitNodeOption"` 
+    if [ $is_exit_node = true ] ; then
+      options+="$(echo $p | jq '.HostName' | tr -d '"')\n"
+    fi
+  done < <(echo `tailscale status --json` | jq -c ".Peer[]")
+  echo -e $options
+  exit 0
+}
+
+change_exit_node() {
+  if [ -z $1 ] ; then
+    notify-send -a Tailscale Tailscale "Turning off exit node"
+  else
+    notify-send -a Tailscale Tailscale "Changing exit node to $1"
+  fi
+  pkexec tailscale set --exit-node=$1
+}
+
+if [ "$ROFI_DATA" = "exit_node" ] ; then
+  chosen_exit_node=$1
+  if [ "$chosen_exit_node" == "$turn_off_exit_node" ] ; then
+    chosen_exit_node=""
+  fi
+  coproc change_exit_node "$chosen_exit_node"
+  exit 0
+fi
+
+if [ "$*" ]
+then
+  case $1 in
+      $tailscale_up)
+      coproc turn_tailscale_up
+          ;;
+      $tailscale_down)
+      coproc turn_tailscale_down
+          ;;
+      $exit_node)
+      choose_exit_node 
+          ;;
+  esac
+  exit 0
+fi
+
+if [ $tailscale_is_up = true ] ; then
+  options="$tailscale_down\n$exit_node\0info\x1fexit_node"
+else
+  options="$tailscale_up\n"
+fi
+
+echo -e $options
