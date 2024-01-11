@@ -1,5 +1,5 @@
 [global]
-    frame_color = "#dc8a78"
+    frame_color = "#f5e0dc"
     separator_color= frame
     ### Display ###
 
@@ -42,7 +42,7 @@
     idle_threshold = 120
 
     ### Text ###
-    font = SauceCodePro Nerd Font 10
+    font = Inter 10
     line_height = 0
 
     markup = full
@@ -71,7 +71,7 @@
     ### Icons ###
     icon_position = left
     max_icon_size = 48
-    icon_path = /usr/share/icons/Nord-Icon/48x48/status/:/usr/share/icons/Nord-Icon/48x48/devices/:/usr/share/icons/Nord-Icon/48x48/apps
+    # icon_path = /usr/share/icons/Nord-Icon/48x48/status/:/usr/share/icons/Nord-Icon/48x48/devices/:/usr/share/icons/Nord-Icon/48x48/apps
 
     ### History ###
     sticky_history = yes
@@ -89,38 +89,38 @@
 [experimental]
     per_monitor_dpi = false
 
-[qtile]
-    appname = Qtile
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/python.svg
-
-[pomodoro]
-    appname = Pomod
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/pomodoro-indicator.svg
-
-[slack]
-    desktop_entry = Slack
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/slack.svg
-
-[dunst_icon]
-    appname = dunst
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/bell.svg
-
-[notify_send_icon]
-    appname = notify-send
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/bell.svg
-
-[giph]
-    appname = giph
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/simplescreenrecorder.svg
-
-[zsh]
-    appname = zsh
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/terminal.svg
-
-[giph_summary]
-    summary = giph
-    new_icon = /usr/share/icons/Nord-Icon/48x48/apps/simplescreenrecorder.svg
-    
+# [qtile]
+#     appname = Qtile
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/python.svg
+#
+# [pomodoro]
+#     appname = Pomod
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/pomodoro-indicator.svg
+#
+# [slack]
+#     desktop_entry = Slack
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/slack.svg
+#
+# [dunst_icon]
+#     appname = dunst
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/bell.svg
+#
+# [notify_send_icon]
+#     appname = notify-send
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/bell.svg
+#
+# [giph]
+#     appname = giph
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/simplescreenrecorder.svg
+#
+# [zsh]
+#     appname = zsh
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/terminal.svg
+#
+# [giph_summary]
+#     summary = giph
+#     new_icon = /usr/share/icons/Nord-Icon/48x48/apps/simplescreenrecorder.svg
+#     
 #[shortcuts]
 #    close = ctrl+space
 #    close_all = ctrl+shift+space
@@ -128,17 +128,17 @@
 #    history = ctrl+grave
 
 [urgency_low]
-    background = "#eff1f5"
-    foreground = "#4c4f69"
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
 
 [urgency_normal]
-    background = "#eff1f5"
-    foreground = "#4c4f69"
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
 
 [urgency_critical]
-    background = "#eff1f5"
-    foreground = "#4c4f69"
-    frame_color = "#e64553"
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    frame_color = "#f5e0dc"
 
 [volume]
   appname = Volume
