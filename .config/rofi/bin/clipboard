@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cliphist list \
+  | rofi \
+    -m -1 \
+    -theme ~/.config/rofi/config/launcher.rasi \
+    -p Clipboard \
+    -dmenu \ 
+  | cliphist decode \
+  | wl-copy
