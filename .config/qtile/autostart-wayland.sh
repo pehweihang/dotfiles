@@ -1,3 +1,3 @@
 #!/bin/sh
 
-# kanshi &
+way-displays &
