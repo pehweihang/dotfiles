@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+screen="󰍺 Capture Screen"
+output="󰍹 Capture Output"
+area="󰆞 Capture Area"
+area_frozen="󰆞 Capture Frozen Area"
+
+screen() {
+  $HOME/.local/bin/grimblast-swappy p > /dev/null
+}
+
+output() {
+  $HOME/.local/bin/grimblast-swappy m > /dev/null
+}
+
+area() {
+  $HOME/.local/bin/grimblast-swappy s
+}
+
+area_frozen() {
+  $HOME/.local/bin/grimblast-swappy sf
+}
+
+if [ "$*" ]
+then
+  case $1 in
+      $screen)
+      coproc screen
+          ;;
+      $output)
+      coproc output
+          ;;
+      $area)
+      coproc area
+      ;;
+      $area_frozen)
+      coproc area_frozen
+      ;;
+  esac
+  exit 0
+fi
+
+
+options="$screen\n$output\n$area\n$area_frozen\n"
+echo -e $options

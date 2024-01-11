@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+rofi \
+  -m -1 \
+  -theme ~/.config/rofi/config/screenshot.rasi \
+  -modi "Screenshot:~/.config/rofi/script/grimblast-swappy" \
+  -show 
