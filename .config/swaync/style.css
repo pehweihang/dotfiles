@@ -27,6 +27,61 @@
   border-radius: 12px;
 }
 
+.notification-group {
+  /* Styling only for Grouped Notifications */
+}
+
+.notification-group.low {
+  /* Low Priority Group */
+}
+
+.notification-group.normal {
+  /* Low Priority Group */
+}
+
+.notification-group.critical {
+  /* Low Priority Group */
+}
+
+.notification-group .notification-group-buttons, .notification-group .notification-group-headers {
+  margin: 0 16px;
+  color: @text-color;
+}
+
+.notification-group .notification-group-headers {
+  /* Notification Group Headers */
+}
+
+.notification-group .notification-group-headers .notification-group-icon {
+  color: @text-color;
+}
+
+.notification-group .notification-group-headers .notification-group-header {
+  color: @text-color;
+}
+
+.notification-group .notification-group-buttons {
+  /* Notification Group Buttons */
+}
+
+.notification-group.collapsed .notification-row .notification {
+  background-color: @noti-bg;
+}
+
+.notification-group.collapsed .notification-row:not(:last-child) {
+  /* Top notification in stack */
+  /* Set lower stacked notifications opacity to 0 */
+}
+
+.notification-group.collapsed .notification-row:not(:last-child) .notification-action,
+.notification-group.collapsed .notification-row:not(:last-child) .notification-default-action {
+  opacity: 0;
+}
+
+.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+  background-color: @noti-bg-hover;
+}
+
 .close-button {
   background: @noti-close-bg;
   color: @text-color;
@@ -94,6 +149,7 @@
 .inline-reply {
   margin-top: 8px;
 }
+
 .inline-reply-entry {
   background: @noti-bg-darker;
   color: @text-color;
@@ -101,6 +157,7 @@
   border: 1px solid @noti-border-color;
   border-radius: 12px;
 }
+
 .inline-reply-button {
   margin-left: 4px;
   background: @noti-bg;
@@ -108,11 +165,13 @@
   border-radius: 12px;
   color: @text-color;
 }
+
 .inline-reply-button:disabled {
   background: initial;
   color: @text-color-disabled;
   border: 1px solid transparent;
 }
+
 .inline-reply-button:hover {
   background: @noti-bg-hover;
 }
@@ -184,7 +243,8 @@
   font-weight: bold;
   font-size: 1.5rem;
 }
-.widget-title > button {
+
+.widget-title>button {
   font-size: initial;
   color: @text-color;
   text-shadow: none;
@@ -193,7 +253,8 @@
   box-shadow: none;
   border-radius: 12px;
 }
-.widget-title > button:hover {
+
+.widget-title>button:hover {
   background: @noti-bg-hover;
 }
 
@@ -203,17 +264,20 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
-.widget-dnd > switch {
+
+.widget-dnd>switch {
   /* font-size: initial; */
   /* border-radius: 12px; */
   background: @noti-bg;
   /* border: 1px solid @noti-border-color; */
   /* box-shadow: none; */
 }
-.widget-dnd > switch:checked {
+
+.widget-dnd>switch:checked {
   background: @bg-selected;
 }
-.widget-dnd > switch slider {
+
+.widget-dnd>switch slider {
   background: @noti-bg-hover;
   /* border-radius: 12px; */
 }
@@ -222,7 +286,8 @@
 .widget-label {
   margin: 15px;
 }
-.widget-label > label {
+
+.widget-label>label {
   font-size: 1.1rem;
 }
 
@@ -230,14 +295,17 @@
 .widget-mpris {
   /* The parent to all players */
 }
+
 .widget-mpris-player {
   padding: 8px;
   margin: 15px;
 }
+
 .widget-mpris-title {
   font-weight: bold;
   font-size: 1.25rem;
 }
+
 .widget-mpris-subtitle {
   font-size: 1.1rem;
 }
@@ -248,7 +316,8 @@
   margin: 15px;
   font-size: 1.5rem;
 }
-.widget-inhibitors > button {
+
+.widget-inhibitors>button {
   font-size: initial;
   color: @text-color;
   text-shadow: none;
@@ -257,6 +326,7 @@
   box-shadow: none;
   border-radius: 12px;
 }
-.widget-inhibitors > button:hover {
+
+.widget-inhibitors>button:hover {
   background: @noti-bg-hover;
 }
