@@ -10,7 +10,7 @@ from libqtile.lazy import lazy
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
-flavour = Flavour.latte()
+flavour = Flavour.mocha()
 
 font = "JetBrainsMono Nerd Font Mono"
 # font = 'arial'
