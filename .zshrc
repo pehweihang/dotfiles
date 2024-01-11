@@ -4,10 +4,7 @@ SAVEHIST=1000
 setopt notify
 unsetopt beep
 bindkey -v
-# zstyle :compinstall filename '/home/weihang/.zshrc'
-#
-# autoload -Uz compinit
-# compinit
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
 alias v=nvim
 alias ls=exa
