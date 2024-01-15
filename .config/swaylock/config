@@ -3,7 +3,7 @@ show-failed-attempts
 clock
 screenshot
 effect-blur=15x15
-effect-vignette=1:1
+effect-vignette=0:1
 color=1f1d2e80
 font="Inter"
 indicator
