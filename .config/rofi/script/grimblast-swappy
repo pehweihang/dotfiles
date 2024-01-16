@@ -14,11 +14,11 @@ output() {
 }
 
 area() {
-  $HOME/.local/bin/grimblast-swappy s
+  $HOME/.local/bin/grimblast-swappy s > /dev/null
 }
 
 area_frozen() {
-  $HOME/.local/bin/grimblast-swappy sf
+  $HOME/.local/bin/grimblast-swappy sf > /dev/null
 }
 
 if [ "$*" ]
