@@ -39,7 +39,7 @@
 
   "hyprland/workspaces": {
     "active_only": false,
-    "all-outputs": false,
+    "all-outputs": true,
     "format": "{id}",
   },
 
