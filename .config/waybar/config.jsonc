@@ -12,7 +12,7 @@
     "custom/sepp",
     "hyprland/window",
     "custom/r_end",
-    "custom/padd"
+    "custom/padd",
   ],
   "modules-center": [
     "custom/l_end",
@@ -20,7 +20,7 @@
     "clock",
     "privacy",
     "custom/r_end",
-    "custom/padd"
+    "custom/padd",
   ],
 
   "modules-right": [
@@ -34,18 +34,18 @@
     "temperature",
     "battery",
     "custom/r_end",
-    "custom/padd"
+    "custom/padd",
   ],
 
   "hyprland/workspaces": {
     "active_only": false,
     "all-outputs": false,
-    "format": "{id}"
+    "format": "{id}",
   },
 
   "hyprland/window": {
     "format": "{title}",
-    "separate-outputs": false
+    "separate-outputs": false,
   },
 
   "clock": {
@@ -58,42 +58,42 @@
       "format": {
         "months": "<span color='#f5e0dc'><b>{}</b></span>",
         "weekdays": "<span color='#f2cdcd'><b>{}</b></span>",
-        "today": "<span color='#f38ba8'><b>{}</b></span>"
-      }
+        "today": "<span color='#f38ba8'><b>{}</b></span>",
+      },
     },
     "actions": {
       "on-click-right": "mode",
       "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
+      "on-scroll-down": "shift_down",
     },
     "tooltip": true,
-    "tooltip-format": "<tt>{calendar}</tt>"
+    "tooltip-format": "<tt>{calendar}</tt>",
   },
 
   "tray": {
     "icon-size": 18,
     "spacing": 5,
-    "tooltip": false
+    "tooltip": false,
   },
 
   "battery": {
     "states": {
       "good": 95,
       "warning": 30,
-      "critical": 20
+      "critical": 20,
     },
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{time} {icon}",
     "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "tooltip": true
+    "tooltip": true,
   },
 
   "cpu": {
     "interval": 5,
     "format": " {usage}%",
-    "tooltip": true
+    "tooltip": true,
   },
 
   "custom/updates": {
@@ -101,37 +101,37 @@
     "return-type": "json",
     "format": "󰮯 {}",
     "interval": 600, // once every day
-    "tooltip": true
+    "tooltip": true,
   },
 
   "temperature": {
     "format": " {temperatureC}°C",
     "interval": 5,
-    "tooltip": true
+    "tooltip": true,
   },
 
   "custom/l_end": {
     "format": " ",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   "custom/r_end": {
     "format": " ",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   "custom/padd": {
     "format": "  ",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   "custom/sepp": {
     "format": "|",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
   "privacy": {
     "icon-spacing": 4,
@@ -141,19 +141,19 @@
       {
         "type": "audio-out",
         "tooltip": true,
-        "tooltip-icon-size": 16
+        "tooltip-icon-size": 16,
       },
       {
         "type": "audio-in",
         "tooltip": true,
-        "tooltip-icon-size": 16
+        "tooltip-icon-size": 16,
       },
       {
         "type": "screenshare",
         "tooltip": true,
-        "tooltip-icon-size": 16
-      }
-    ]
+        "tooltip-icon-size": 16,
+      },
+    ],
   },
   "custom/notification": {
     "tooltip": false,
@@ -166,13 +166,13 @@
       "inhibited-notification": "󰤄<span font_family=\"Inter\"> </span>",
       "inhibited-none": "",
       "dnd-inhibited-notification": "󰤄<span font_family=\"Inter\"> </span>",
-      "dnd-inhibited-none": "󰤄"
+      "dnd-inhibited-none": "󰤄",
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
-    "escape": true
+    "escape": true,
   },
 }
