@@ -13,6 +13,7 @@ alias cat=bat
 # git aliases
 alias gst="git status"
 alias gc="git commit -v"
+alias gco="git checkout"
 alias ga="git add"
 alias gaa="git add --all"
 alias gau="git add --update"
