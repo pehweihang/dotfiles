@@ -28,3 +28,6 @@
 [submodule ".config/zsh/catppuccin-zsh-syntax-highlighting"]
 	path = .config/zsh/catppuccin-zsh-syntax-highlighting
 	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
+[submodule ".config/zsh/zsh-autocomplete"]
+	path = .config/zsh/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete

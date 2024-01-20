@@ -1,6 +1,6 @@
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt notify
 unsetopt beep
 bindkey -v
@@ -27,6 +27,9 @@ source ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 source ~/.config/zsh/conda-zsh-completion/conda-zsh-completion.plugin.zsh
+source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+bindkey '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 
 export PATH=$PATH:~/.local/bin/
 
