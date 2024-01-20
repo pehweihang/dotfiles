@@ -7,7 +7,7 @@ fi
 
 # Check for updates
 aur=`paru -Qua | wc -l`
-ofc=`checkupdates | wc -l`
+ofc=`checkupdates -n | wc -l`
 
 # Calculate total available updates
 upd=$(( ofc + aur ))
