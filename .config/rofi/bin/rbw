@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+selector_args="-m -4 -theme $HOME/.config/rofi/config/calculator.rasi"
+rofi-rbw --selector-args "$selector_args" --no-help
