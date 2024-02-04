@@ -4,7 +4,6 @@ SAVEHIST=100000
 setopt notify
 unsetopt beep
 bindkey -v
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
 alias v=nvim
 alias ls=exa
@@ -29,7 +28,14 @@ source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 source ~/.config/zsh/conda-zsh-completion/conda-zsh-completion.plugin.zsh
 source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-bindkey '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+
+zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
+zstyle ':autocomplete:*history*:*' insert-unambiguous yes
+zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
+zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 
 export PATH=$PATH:~/.local/bin/
 
