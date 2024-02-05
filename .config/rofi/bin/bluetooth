@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rofi-bluetooth -m -4 -theme $HOME/.config/rofi/config/calculator.rasi -i
