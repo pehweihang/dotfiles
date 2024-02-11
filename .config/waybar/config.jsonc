@@ -30,6 +30,7 @@
     "custom/r_end",
     "custom/l_end",
     "custom/updates",
+    "bluetooth",
     "cpu",
     "temperature",
     "battery",
@@ -108,6 +109,19 @@
     "format": " {temperatureC}°C",
     "interval": 5,
     "tooltip": true,
+  },
+
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "format-on": " On",
+    "format-off": " Off",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{icon} {device_battery_percentage}%",
   },
 
   "custom/l_end": {
