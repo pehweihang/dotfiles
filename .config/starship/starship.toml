@@ -33,7 +33,7 @@ format = "[$symbol$branch(:$remote_branch)]($style) "
 style = "bold green"
 
 [git_status]
-format = "$ahead_behind$staged$modified$renamed$deleted$untracked"
+format = "$ahead_behind$staged$modified$renamed$deleted$untracked$stashed"
 ahead = "[⇡${count}](teal) "
 behind = "[⇣${count}](teal) "
 diverged = "[⇡${ahead_count} ⇣${behind_count}](teal) "
@@ -42,6 +42,7 @@ modified = "[!${count}](peach) "
 staged = "[+${count}](peach) "
 renamed = "[»${count}](peach) "
 deleted = "[✘${count}](maroon) "
+stashed = "[*${count}](lavender) "
 
 [fill]
 symbol = "."
