@@ -39,7 +39,7 @@ zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 
 export PATH=$PATH:~/.local/bin/
 
-export BAT_THEME="Catppuccin-frappe"
+export BAT_THEME="Catppuccin-mocha"
 
 autoload -Uz compinit
 compinit
