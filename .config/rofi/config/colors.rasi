@@ -11,28 +11,28 @@
 /*     ON:    #ABE9B3ff; */
 /* } */
 
-/* * { */
-/*     BG:    #EFF1F5ff; */
-/*     BGA:   #DC8A78ff; */
-/*     FG:    #4C4F69ff; */
-/*     FGA:   #F28FADff; */
-/*     BDR:   #DC8A78ff; */
-/*     SEL:   #DCE0E8ff; */
-/*     UGT:   #E64553ff; */
-/*     IMG:   #DC8A78ff; */
-/*     OFF:   #00ff00ff; */
-/*     ON:    #0000ff00; */
-/* } */
-
 * {
-    BG:    #1E1E2Eff;
-    BGA:   #F5E0DCff;
-    FG:    #CDD6F4ff;
+    BG:    #EFF1F5ff;
+    BGA:   #DC8A78ff;
+    FG:    #4C4F69ff;
     FGA:   #F28FADff;
-    BDR:   #F5E0DCff;
-    SEL:   #11111Bff;
-    UGT:   #EBA0ACff;
-    IMG:   #F5E0DCff;
+    BDR:   #DC8A78ff;
+    SEL:   #DCE0E8ff;
+    UGT:   #E64553ff;
+    IMG:   #DC8A78ff;
     OFF:   #00ff00ff;
     ON:    #0000ff00;
 }
+
+/* * { */
+/*     BG:    #1E1E2Eff; */
+/*     BGA:   #F5E0DCff; */
+/*     FG:    #CDD6F4ff; */
+/*     FGA:   #F28FADff; */
+/*     BDR:   #F5E0DCff; */
+/*     SEL:   #11111Bff; */
+/*     UGT:   #EBA0ACff; */
+/*     IMG:   #F5E0DCff; */
+/*     OFF:   #00ff00ff; */
+/*     ON:    #0000ff00; */
+/* } */
