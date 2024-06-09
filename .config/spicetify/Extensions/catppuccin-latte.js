@@ -1,1 +1,0 @@
-/home/weihang/dotfiles/.config/./spicetify/Extensions/catppuccin-latte.js
