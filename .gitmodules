@@ -1,9 +1,9 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
-	url = git@github.com:pehweihang/nvim.git
+	url = https://github.com/pehweihang/nvim.git
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
-	url = git@github.com:tmux-plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
 [submodule ".config/zathura/catppuccin"]
 	path = .config/zathura/catppuccin
 	url = https://github.com/catppuccin/zathura
@@ -31,3 +31,9 @@
 [submodule ".config/zsh/zsh-autocomplete"]
 	path = .config/zsh/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
+[submodule ".config/btop/catppuccin"]
+	path = .config/btop/catppuccin
+	url = https://github.com/catppuccin/btop.git
+[submodule ".config/bat/catppuccin"]
+	path = .config/bat/catppuccin
+	url = https://github.com/catppuccin/bat.git
