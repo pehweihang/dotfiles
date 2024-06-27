@@ -19,18 +19,12 @@
 [submodule ".config/zsh/zsh-autosuggestions"]
 	path = .config/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule ".config/zsh/conda-zsh-completion"]
-	path = .config/zsh/conda-zsh-completion
-	url = https://github.com/conda-incubator/conda-zsh-completion
 [submodule ".config/hypr/catppuccin"]
 	path = .config/hypr/catppuccin
 	url = https://github.com/catppuccin/hyprland.git
 [submodule ".config/zsh/catppuccin-zsh-syntax-highlighting"]
 	path = .config/zsh/catppuccin-zsh-syntax-highlighting
 	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
-[submodule ".config/zsh/zsh-autocomplete"]
-	path = .config/zsh/zsh-autocomplete
-	url = https://github.com/marlonrichert/zsh-autocomplete
 [submodule ".config/btop/catppuccin"]
 	path = .config/btop/catppuccin
 	url = https://github.com/catppuccin/btop.git
