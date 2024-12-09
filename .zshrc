@@ -65,6 +65,7 @@ bindkey '^n' history-search-forward
 export PATH=$PATH:~/.local/bin/:~/go/bin/:~/.cargo/bin/
 
 export BAT_THEME="current-theme"
+export ATAC_KEY_BINDINGS=~/.config/atac/vim_key_bindings.toml
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
