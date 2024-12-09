@@ -62,7 +62,7 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
 
-export PATH=$PATH:~/.local/bin/
+export PATH=$PATH:~/.local/bin/:~/go/bin/:~/.cargo/bin/
 
 export BAT_THEME="current-theme"
 
