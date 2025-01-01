@@ -1,0 +1,7 @@
+[user]
+	email = weihang@pehweihang.com
+	name = Peh Wei Hang
+[core]
+	editor = nvim
+[init]
+	defaultBranch = master
