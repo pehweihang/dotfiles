@@ -3,5 +3,5 @@
 rofi \
   -m -1 \
   -theme ~/.config/rofi/config/screenshot.rasi \
-  -modi "Screenshot:~/.config/rofi/script/grimblast-swappy" \
+  -modi "Screenshot:~/.config/rofi/script/grimblast-satty" \
   -show 

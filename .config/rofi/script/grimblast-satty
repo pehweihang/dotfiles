@@ -6,19 +6,19 @@ area="󰆞 Capture Area"
 area_frozen="󰆞 Capture Frozen Area"
 
 screen() {
-  $HOME/.local/bin/grimblast-swappy p > /dev/null
+  $HOME/.local/bin/grimblast-satty p > /dev/null
 }
 
 output() {
-  $HOME/.local/bin/grimblast-swappy m > /dev/null
+  $HOME/.local/bin/grimblast-satty m > /dev/null
 }
 
 area() {
-  $HOME/.local/bin/grimblast-swappy s > /dev/null
+  $HOME/.local/bin/grimblast-satty s > /dev/null
 }
 
 area_frozen() {
-  $HOME/.local/bin/grimblast-swappy sf > /dev/null
+  $HOME/.local/bin/grimblast-satty sf > /dev/null
 }
 
 if [ "$*" ]
