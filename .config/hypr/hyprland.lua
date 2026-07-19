@@ -15,10 +15,10 @@ hl.on("hyprland.start", function()
 	hl.dsp.exec_cmd("uwsm app -- /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 	hl.dsp.exec_cmd("uwsm app -- protonmail-bridge-core --cli")
 
-	hl.dsp.exec_cmd("hyprctl dispatch exec [workspace 1 silent] uwsm app -- kitty zsh")
-	hl.dsp.exec_cmd("hyprctl dispatch exec [workspace 2 silent] uwsm app -- zen-browser")
-	hl.dsp.exec_cmd("hyprctl dispatch exec [workspace 3 silent] uwsm app -- Telegram")
-	hl.dsp.exec_cmd("hyprctl dispatch exec [workspace 4 silent] uwsm app -- thunderbird")
+	hl.dsp.exec_cmd("uwsm app -- kitty zsh", { workspace = "1 silent" })
+	hl.dsp.exec_cmd("uwsm app -- zen-browser", { workspace = "2 silent" })
+	hl.dsp.exec_cmd("uwsm app -- Telegram", { workspace = "3 silent" })
+	hl.dsp.exec_cmd("uwsm app -- thunderbird", { workspace = "4 silent" })
 end)
 
 hl.config({
