@@ -71,3 +71,5 @@ export ATAC_KEY_BINDINGS=~/.config/atac/vim_key_bindings.toml
 eval "$(fzf --zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(starship init zsh)"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
