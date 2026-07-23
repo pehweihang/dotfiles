@@ -8,17 +8,17 @@ hl.monitor({
 })
 
 hl.on("hyprland.start", function()
-	hl.dsp.exec_cmd("uwsm app -- ${HOME}/.config/hypr/scripts/bitwarden-resize.sh")
-	hl.dsp.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist --max-items 10000 store")
-	hl.dsp.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist --max-items 10000 store")
-	hl.dsp.exec_cmd("uwsm app -- swayosd-server")
-	hl.dsp.exec_cmd("uwsm app -- /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-	hl.dsp.exec_cmd("uwsm app -- protonmail-bridge-core --cli")
+	hl.exec_cmd("uwsm app -- ${HOME}/.config/hypr/scripts/bitwarden-resize.sh")
+	hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist --max-items 10000 store")
+	hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist --max-items 10000 store")
+	hl.exec_cmd("uwsm app -- swayosd-server")
+	hl.exec_cmd("uwsm app -- /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+	hl.exec_cmd("uwsm app -- protonmail-bridge-core --cli")
 
-	hl.dsp.exec_cmd("uwsm app -- kitty zsh", { workspace = "1 silent" })
-	hl.dsp.exec_cmd("uwsm app -- zen-browser", { workspace = "2 silent" })
-	hl.dsp.exec_cmd("uwsm app -- Telegram", { workspace = "3 silent" })
-	hl.dsp.exec_cmd("uwsm app -- thunderbird", { workspace = "4 silent" })
+	hl.exec_cmd("uwsm app -- kitty zsh", { workspace = "1 silent" })
+	hl.exec_cmd("uwsm app -- zen-browser", { workspace = "2 silent" })
+	hl.exec_cmd("uwsm app -- Telegram", { workspace = "3 silent" })
+	hl.exec_cmd("uwsm app -- thunderbird", { workspace = "4 silent" })
 end)
 
 hl.config({
